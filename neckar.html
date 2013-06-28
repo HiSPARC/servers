@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation of Neckar &mdash; HiSPARC servers 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/hisparc_style.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="HiSPARC servers 0.1 documentation" href="index.html" />
+    <link rel="prev" title="Installation of Tietar" href="tietar.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="tietar.html" title="Installation of Tietar"
+             accesskey="P">previous</a></li>
+        <li><a href="index.html">HiSPARC servers 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installation-of-neckar">
+<h1>Installation of Neckar<a class="headerlink" href="#installation-of-neckar" title="Permalink to this headline">¶</a></h1>
+<p>Granting davidf rights to manage software and services:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>visudo
+</pre></div>
+</div>
+<p>and adding:</p>
+<div class="highlight-python"><pre>davidf  ALL = SOFTWARE, SERVICES</pre>
+</div>
+<div class="section" id="web-server">
+<h2>Web server<a class="headerlink" href="#web-server" title="Permalink to this headline">¶</a></h2>
+<p>Change configuration in /etc/httpd/conf/httpd.conf. Patch:</p>
+<div class="highlight-python"><pre>--- httpd.conf.orig     2009-12-04 14:35:39.000000000 +0100
++++ httpd.conf  2009-12-04 14:35:50.000000000 +0100
+@@ -228,8 +228,8 @@
+ #  when the value of (unsigned)Group is above 60000;
+ #  don't use Group #-1 on these systems!
+ #
+-User apache
+-Group apache
++User www
++Group www
+
+ ### Section 2: 'Main' server configuration
+ #</pre>
+</div>
+<p>Enabling httpd on startup:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo /sbin/chkconfig --add httpd
+<span class="nv">$ </span>sudo /sbin/chkconfig --levels 35 httpd on
+</pre></div>
+</div>
+<p>Starting httpd now:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo /sbin/service httpd start
+</pre></div>
+</div>
+</div>
+<div class="section" id="mysql-server">
+<h2>MySQL Server<a class="headerlink" href="#mysql-server" title="Permalink to this headline">¶</a></h2>
+<p>The mysql server was pre-installed on this system, but not configured.  To
+configure mysql and create the TYPO3 database:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo /sbin/chkconfig --levels 35 mysqld on
+<span class="nv">$ </span>sudo /sbin/service mysqld start
+<span class="nv">$ </span>mysqladmin -u root password <span class="s1">&#39;secret_password&#39;</span>
+<span class="nv">$ </span>mysql -u root -p
+mysql&gt; create database hisparc_t3 default character <span class="nb">set</span> <span class="s1">&#39;utf8&#39;</span>;
+mysql&gt; grant all on hisparc_t3.* to <span class="s1">&#39;hisparc&#39;</span>@<span class="s1">&#39;localhost&#39;</span> identified by <span class="s1">&#39;secret_password&#39;</span>;
+</pre></div>
+</div>
+</div>
+<div class="section" id="hisparc-website">
+<h2>HiSPARC website<a class="headerlink" href="#hisparc-website" title="Permalink to this headline">¶</a></h2>
+<p>The HiSPARC website is a typical TYPO3 installation with some added
+modules.  This installation is created and provided by <a class="reference external" href="http://www.ooip.nl">OOiP</a>.  From the TYPO3 website:</p>
+<blockquote>
+<div>TYPO3 is a free Open Source content management system for enterprise
+purposes on the web and in intranets.  It offers full flexibility and
+extendability while featuring an accomplished set of ready-made
+interfaces, functions and modules.</div></blockquote>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>TYPO3 has some prerequisites, some of which were already installed: PHP
+and ImageMagick.  Unfortunately, MySQL support for PHP was not yet
+installed.  Do this by issuing:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo yum install php-mysql
+</pre></div>
+</div>
+<p>It turns out the permissions for the PHP session directory were incorrect.
+Correct them as follows:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chown www.www /var/lib/php/session
+</pre></div>
+</div>
+<p>To make sure TYPO3 uses loopback connections to itself, update the
+/etc/hosts file to contain:</p>
+<div class="highlight-python"><pre>127.0.0.1       localhost.localdomain localhost neckar.nikhef.nl neckar www.hisparc.nl</pre>
+</div>
+</div>
+</div>
+<div class="section" id="website">
+<h2>Website<a class="headerlink" href="#website" title="Permalink to this headline">¶</a></h2>
+<p>To install the HiSPARC website, untar the OOiP-provided directory dump:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>mkdir www
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chown www.www www
+<span class="nv">$ </span><span class="nb">cd </span>www
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>tar xvzf hisparc-web.tar.gz --strip-components<span class="o">=</span>1
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chown -R www.www *
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chmod -R a-x *
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chmod -R a+X *
+<span class="nv">$ </span>mysql -u hisparc -p hisparc_t3 &lt; hisparc_t3.sql
+</pre></div>
+</div>
+<p>Create the apache config by creating and editing
+/etc/httpd/conf.d/hisparc.conf to contain:</p>
+<div class="highlight-python"><pre>&lt;VirtualHost *:80&gt;
+    ServerName www.hisparc.nl
+    ServerAlias neckar.nikhef.nl
+
+    DocumentRoot /usr/local/www/web
+
+    &lt;Directory /usr/local/www/web&gt;
+        AllowOverride All
+        Allow from All
+
+        Options +FollowSymLinks +ExecCGI
+
+    &lt;/Directory&gt;
+
+&lt;/VirtualHost&gt;</pre>
+</div>
+<p>After that, reload the web server:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo /sbin/service httpd reload
+</pre></div>
+</div>
+<p>Installation should now be complete.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation of Neckar</a><ul>
+<li><a class="reference internal" href="#web-server">Web server</a></li>
+<li><a class="reference internal" href="#mysql-server">MySQL Server</a></li>
+<li><a class="reference internal" href="#hisparc-website">HiSPARC website</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#website">Website</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tietar.html"
+                        title="previous chapter">Installation of Tietar</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/neckar.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="tietar.html" title="Installation of Tietar"
+             >previous</a></li>
+        <li><a href="index.html">HiSPARC servers 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009-2013, HiSPARC.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

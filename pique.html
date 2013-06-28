@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation of Pique &mdash; HiSPARC servers 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/hisparc_style.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="HiSPARC servers 0.1 documentation" href="index.html" />
+    <link rel="next" title="Installation of Tietar" href="tietar.html" />
+    <link rel="prev" title="Installation of Frome" href="frome.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="tietar.html" title="Installation of Tietar"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="frome.html" title="Installation of Frome"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HiSPARC servers 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installation-of-pique">
+<h1>Installation of Pique<a class="headerlink" href="#installation-of-pique" title="Permalink to this headline">¶</a></h1>
+<p>Granting davidf rights to manage software and services:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>visudo
+</pre></div>
+</div>
+<p>and adding:</p>
+<div class="highlight-python"><pre>davidf  ALL = SOFTWARE, SERVICES</pre>
+</div>
+<p>Preparing for source install:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span><span class="nb">cd</span> /localstore
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>mkdir -p usr/local
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>mv /usr/local/src usr/local
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span><span class="nb">cd</span> /usr/local
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>ln -s /localstore/usr/local/src .
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>mkdir hisparc
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chown davidf.hisparc hisparc/
+<span class="nv">$ </span>chmod g+w hisparc/
+</pre></div>
+</div>
+<p>In /etc/ld.so.conf.d new file usrlocal.conf, to let ldconfig find
+libraries of locally installed software:</p>
+<div class="highlight-python"><pre>/usr/local/lib</pre>
+</div>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>Python:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/hisparc
+<span class="nv">$ </span>wget http://www.python.org/ftp/python/2.6.4/Python-2.6.4.tgz
+<span class="nv">$ </span>tar xvzf Python-2.6.4.tgz
+<span class="nv">$ </span><span class="nb">cd </span>Python-2.6.4
+<span class="nv">$ </span>./configure --enable-shared
+<span class="nv">$ </span>make
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>make install
+</pre></div>
+</div>
+<p>Then, run:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>ldconfig
+</pre></div>
+</div>
+<p>Now, the python libraries are registered.</p>
+</div>
+<div class="section" id="python-setuptools">
+<h2>Python Setuptools<a class="headerlink" href="#python-setuptools" title="Permalink to this headline">¶</a></h2>
+<p>From egg:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/hisparc
+<span class="nv">$ </span>wget http://pypi.python.org/packages/2.6/s/setuptools/setuptools-0.6c11-py2.6.egg#md5<span class="o">=</span>bfa92100bd772d5a213eedd356d64086
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>sh setuptools-0.6c11-py2.6.egg
+</pre></div>
+</div>
+</div>
+<div class="section" id="ipython-an-interactive-python-shell">
+<h2>IPython, an interactive Python shell<a class="headerlink" href="#ipython-an-interactive-python-shell" title="Permalink to this headline">¶</a></h2>
+<p>Download and install IPython:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>easy_install ipython
+</pre></div>
+</div>
+</div>
+<div class="section" id="web-server">
+<h2>Web server<a class="headerlink" href="#web-server" title="Permalink to this headline">¶</a></h2>
+<p>Install apache development libraries:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo yum install httpd-devel
+
+<span class="o">================================================================================</span>
+ Package             Arch        Version                 Repository        <span class="nv">Size</span>
+<span class="o">================================================================================</span>
+Installing:
+ httpd-devel         i386        2.2.3-31.sl5.2          sl-security      147 k
+ httpd-devel         x86_64      2.2.3-31.sl5.2          sl-security      147 k
+Installing <span class="k">for </span>dependencies:
+ apr                 x86_64      1.2.7-11.el5_3.1        sl-security      118 k
+ apr-devel           x86_64      1.2.7-11.el5_3.1        sl-security      237 k
+ apr-util            x86_64      1.2.7-7.el5_3.2         sl-security       74 k
+ apr-util-devel      x86_64      1.2.7-7.el5_3.2         sl-security       53 k
+ httpd               x86_64      2.2.3-31.sl5.2          sl-security      1.2 M
+</pre></div>
+</div>
+<p>Change configuration in /etc/httpd/conf/httpd.conf. Patch:</p>
+<div class="highlight-python"><pre>--- httpd.conf.orig     2009-12-04 14:35:39.000000000 +0100
++++ httpd.conf  2009-12-04 14:35:50.000000000 +0100
+@@ -228,8 +228,8 @@
+ #  when the value of (unsigned)Group is above 60000;
+ #  don't use Group #-1 on these systems!
+ #
+-User apache
+-Group apache
++User www
++Group www
+
+ ### Section 2: 'Main' server configuration
+ #</pre>
+</div>
+<p>Enabling httpd on startup:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo /sbin/chkconfig --add httpd
+<span class="nv">$ </span>sudo /sbin/chkconfig --levels 35 httpd on
+</pre></div>
+</div>
+<p>Starting httpd now:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo /sbin/service httpd start
+</pre></div>
+</div>
+<p>For mod_wsgi:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/hisparc
+<span class="nv">$ </span>wget http://modwsgi.googlecode.com/files/mod_wsgi-3.1.tar.gz
+<span class="nv">$ </span>tar xvzf mod_wsgi-3.1.tar.gz
+<span class="nv">$ </span><span class="nb">cd </span>mod_wsgi-3.1
+<span class="nv">$ </span>./configure
+<span class="nv">$ </span>make
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>make install
+</pre></div>
+</div>
+<p>Change configuration in /etc/httpd/conf/httpd.conf. Patch:</p>
+<div class="highlight-python"><pre>--- httpd.conf.orig     2009-12-04 15:19:01.000000000 +0100
++++ httpd.conf  2009-12-04 15:34:30.000000000 +0100
+@@ -197,6 +197,7 @@
+ LoadModule mem_cache_module modules/mod_mem_cache.so
+ LoadModule cgi_module modules/mod_cgi.so
+ LoadModule version_module modules/mod_version.so
++LoadModule wsgi_module modules/mod_wsgi.so
+
+ #
+ # The following modules are not loaded by default:</pre>
+</div>
+<p>Restarting apache:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo /sbin/service httpd restart
+</pre></div>
+</div>
+</div>
+<div class="section" id="version-control">
+<h2>Version control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h2>
+<p>Install bazaar from source:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/hisparc
+<span class="nv">$ </span>wget http://launchpad.net/bzr/2.0/2.0.2/+download/bzr-2.0.2.tar.gz
+<span class="nv">$ </span>tar xvzf bzr-2.0.2.tar.gz
+<span class="nv">$ </span><span class="nb">cd </span>bzr-2.0.2
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>python setup.py install
+</pre></div>
+</div>
+<div class="section" id="paramiko">
+<h3>Paramiko<a class="headerlink" href="#paramiko" title="Permalink to this headline">¶</a></h3>
+<p>Paramiko supports ssh2 for python, which is needed to do a checkout of our
+application&#8217;s sources over sftp.  Install using easy_install:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>easy_install paramiko
+</pre></div>
+</div>
+<p>This will automatically download, compile and install dependencies
+(pycrypto).</p>
+</div>
+</div>
+<div class="section" id="public-database-web-application">
+<h2>Public database web application<a class="headerlink" href="#public-database-web-application" title="Permalink to this headline">¶</a></h2>
+<p>The public database blablabla.
+It is a pure python implementation under complete version control.</p>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>The public database application uses PyTables and the underlying HDF5
+library to read binary data files.  PyTables depends heavily on NumPy.:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>easy_install numpy
+</pre></div>
+</div>
+<p>This gives an error:</p>
+<div class="highlight-python"><pre>/tmp/easy_install-JePGOA/numpy-1.4.0rc1/numpy/distutils/misc_util.py:248: RuntimeWarning: Parent module 'numpy.distutils' not found while handling absolute import
+Error in atexit._run_exitfuncs:
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
+    func(*targs, **kargs)
+  File "/tmp/easy_install-JePGOA/numpy-1.4.0rc1/numpy/distutils/misc_util.py", line 248, in clean_up_temporary_directory
+ImportError: No module named numpy.distutils
+Error in sys.exitfunc:
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
+    func(*targs, **kargs)
+  File "/tmp/easy_install-JePGOA/numpy-1.4.0rc1/numpy/distutils/misc_util.py", line 248, in clean_up_temporary_directory
+ImportError: No module named numpy.distutils</pre>
+</div>
+<p>So, rerun the command, this time without errors:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>easy_install numpy
+</pre></div>
+</div>
+<p>Now:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/hisparc
+<span class="nv">$ </span>wget http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-1.8.3/src/hdf5-1.8.3.tar.gz
+<span class="nv">$ </span>tar xvzf hdf5-1.8.3.tar.gz
+<span class="nv">$ </span><span class="nb">cd </span>hdf5-1.8.3
+<span class="nv">$ </span>./configure --prefix<span class="o">=</span>/usr/local
+<span class="nv">$ </span>make
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>make install
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>ldconfig
+</pre></div>
+</div>
+<p>And, finally, install PyTables itself:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>easy_install tables
+</pre></div>
+</div>
+<p>The public databases graphing capabilities come from Enthought Chaco, a
+python plotting library.  It needs swig to build.  Install with:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>wget http://prdownloads.sourceforge.net/swig/swig-1.3.40.tar.gz
+<span class="nv">$ </span>tar xvzf swig-1.3.40.tar.gz
+<span class="nv">$ </span><span class="nb">cd </span>swig-1.3.40
+<span class="nv">$ </span>./configure
+<span class="nv">$ </span>make
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>make install
+</pre></div>
+</div>
+<p>It also needs a GUI toolkit, like wxPython:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>wget http://downloads.sourceforge.net/wxpython/wxPython-src-2.8.10.1.tar.bz2
+<span class="nv">$ </span>tar xvjf wxPython-src-2.8.10.1.tar.bz2
+<span class="nv">$ </span><span class="nb">cd </span>wxPython-src-2.8.10.1
+<span class="nv">$ </span>./configure --enable-unicode --with-opengl
+<span class="nv">$ </span>make <span class="o">&amp;&amp;</span> make -C contrib/src/gizmos <span class="o">&amp;&amp;</span> make -C contrib/src/stc
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>make install <span class="o">&amp;&amp;</span> make -C contrib/src/gizmos install <span class="o">&amp;&amp;</span> make -C contrib/src/stc install
+<span class="nv">$ </span><span class="nb">cd </span>wxPython/src/gtk
+<span class="nv">$ </span>patch &lt; /usr/local/src/hisparc/gdi.patch
+<span class="nv">$ </span><span class="nb">cd</span> ../..
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>python setup.py install
+</pre></div>
+</div>
+<p>The contents of the aforementioned gdi.patch is:</p>
+<div class="highlight-python"><pre>--- wxPython/src/gtk/_gdi_wrap.cpp.orig 2009-08-08 16:26:48.000000000 +0200
++++ wxPython/src/gtk/_gdi_wrap.cpp      2009-08-08 16:32:50.000000000 +0200
+@@ -4195,6 +4195,10 @@
+     virtual wxGraphicsBrush CreateRadialGradientBrush(wxDouble , wxDouble , wxDouble , wxDouble , wxDouble ,
+                                                       const wxColour &amp;, const wxColour &amp;)  { return wxNullGraphicsBrush; }
+     virtual wxGraphicsFont CreateFont( const wxFont &amp; , const wxColour &amp; ) { return wxNullGraphicsFont; }
++
++    // patch required as explained in
++    // http://groups.google.com/group/wxPython-users/browse_thread/thread/129ba27e2f868c3c?pli=1
++    wxGraphicsBitmap CreateBitmap( const wxBitmap &amp;bitmap ) const { return wxNullGraphicsBitmap; }
+ };</pre>
+</div>
+<p>We currently run Chaco straight out of the subversion repository.  Once a
+new release has been finalized, we might go back to simply install from
+PyPI.  Now, however, we have to issue:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>easy_install etsprojecttools
+<span class="nv">$ </span>ets co Chaco
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>ets install Chaco_3.2.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-up-the-public-database">
+<h3>Setting up the public database<a class="headerlink" href="#setting-up-the-public-database" title="Permalink to this headline">¶</a></h3>
+<p>In summary:</p>
+<p>Here we go:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/hisparc
+<span class="nv">$ </span>bzr co sftp://admhispa@login.nikhef.nl/project/hisparc/bzr/publicdb/trunk publicdb
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span><span class="nb">cd</span> /var/www
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>mkdir django_publicdb
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chown davidf.hisparc django_publicdb/
+<span class="nv">$ </span>ln -s /usr/local/src/hisparc/publicdb/django_publicdb/* .
+<span class="nv">$ </span>cp --remove-destination /usr/local/src/hisparc/publicdb/django_publicdb/settings.py .
+<span class="nv">$ </span>cp --remove-destination /usr/local/src/hisparc/publicdb/django_publicdb/manage.py .
+<span class="nv">$ </span>cp /usr/local/src/hisparc/publicdb/examples/django.wsgi .
+</pre></div>
+</div>
+<p>And edit django.wsgi so that it contains the right system path:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;/var/www&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, added the public database to the Apache configuration:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span><span class="nb">cd</span> /etc/httpd/conf.d/
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>touch hisparc.conf
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chown davidf.hisparc hisparc.conf
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chmod g+w hisparc.conf
+</pre></div>
+</div>
+<p>And edit hisparc.conf to contain:</p>
+<div class="highlight-python"><pre>RedirectMatch ^/$ http://data.hisparc.nl/django/
+
+WSGIScriptAlias /django /var/www/django_publicdb/django.wsgi
+WSGIPythonEggs /tmp
+
+Alias /django/media /usr/local/lib/python2.6/site-packages/Django-1.1.1-py2.6.egg/django/contrib/admin/media</pre>
+</div>
+<p>Reload Apache configuration:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo /sbin/service httpd reload
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="todo">
+<h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<p>South.</p>
+<div class="highlight-sh"><div class="highlight"><pre>mkdir /var/www/media
+chown www.www media
+ln -s /var/www/django_publicdb/static media
+
+<span class="nb">cd</span> /usr/local/bin
+cp /usr/local/src/hisparc/publicdb/examples/django-cron.py hisparc-update
+
+<span class="c"># Run a daily check for new events, but it _must_ be a few hours after</span>
+<span class="c"># midnight, so don&#39;t place this script in cron.daily, just to be sure.</span>
+0 4 * * * root /usr/local/bin/hisparc-update
+
+python PIL
+
+django cron script on pique, changed a bit?
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation of Pique</a><ul>
+<li><a class="reference internal" href="#python">Python</a></li>
+<li><a class="reference internal" href="#python-setuptools">Python Setuptools</a></li>
+<li><a class="reference internal" href="#ipython-an-interactive-python-shell">IPython, an interactive Python shell</a></li>
+<li><a class="reference internal" href="#web-server">Web server</a></li>
+<li><a class="reference internal" href="#version-control">Version control</a><ul>
+<li><a class="reference internal" href="#paramiko">Paramiko</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#public-database-web-application">Public database web application</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#setting-up-the-public-database">Setting up the public database</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#todo">TODO</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="frome.html"
+                        title="previous chapter">Installation of Frome</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tietar.html"
+                        title="next chapter">Installation of Tietar</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pique.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="tietar.html" title="Installation of Tietar"
+             >next</a></li>
+        <li class="right" >
+          <a href="frome.html" title="Installation of Frome"
+             >previous</a> |</li>
+        <li><a href="index.html">HiSPARC servers 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009-2013, HiSPARC.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
