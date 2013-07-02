@@ -14,7 +14,7 @@
 
 
 \title{HiSPARC Server Setup Documentation}
-\date{June 28, 2013}
+\date{July 02, 2013}
 \release{0.1}
 \author{HiSPARC team}
 \newcommand{\sphinxlogo}{\includegraphics{logo.pdf}\par}
@@ -121,7 +121,7 @@
 \phantomsection\label{index::doc}
 
 
-Contents:
+Servers:
 
 
 \chapter{Installation of Frome}
@@ -1717,6 +1717,360 @@ After that, reload the web server:
 \end{Verbatim}
 
 Installation should now be complete.
+
+Software:
+
+
+\chapter{Upgrading of TYPO3}
+\label{typo3:upgrading-of-typo3}\label{typo3::doc}
+This describes how to update \href{http://www.typo3.org}{TYPO3}. General Upgrade instructions are available on \href{http://wiki.typo3.org/Upgrade}{TYPO3 Upgrade}. This guide is about applying these updates on neckar ({\hyperref[neckar::doc]{\emph{Installation of Neckar}}}).
+
+
+\section{Current versions}
+\label{typo3:current-versions}
+First check the versions of the OS, MySQL, Apache, PHP and TYPO3.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }cat /etc/redhat\PYGZhy{}release
+CentOS release 5.9 \PYG{o}{(}Final\PYG{o}{)}
+\PYG{n+nv}{\PYGZdl{} }mysql \PYGZhy{}\PYGZhy{}version
+mysql  Ver 14.12 Distrib 5.0.95
+\PYG{n+nv}{\PYGZdl{} }httpd \PYGZhy{}v
+Server version: Apache/2.2.3
+\PYG{n+nv}{\PYGZdl{} }php \PYGZhy{}v
+PHP 5.3.19
+\PYG{n+nv}{\PYGZdl{} }yum list installed \textbar{} grep php
+php.x86\PYGZus{}64            5.3.19\PYGZhy{}1.w5
+php\PYGZhy{}cli.x86\PYGZus{}64        5.3.19\PYGZhy{}1.w5
+php\PYGZhy{}common.x86\PYGZus{}64     5.3.19\PYGZhy{}1.w5
+php\PYGZhy{}gd.x86\PYGZus{}64         5.3.19\PYGZhy{}1.w5
+php\PYGZhy{}mysql.x86\PYGZus{}64      5.3.19\PYGZhy{}1.w5
+php\PYGZhy{}pdo.x86\PYGZus{}64        5.3.19\PYGZhy{}1.w5
+\end{Verbatim}
+
+Check TYPO3 version at \href{http://www.hisparc.nl/typo3/}{http://www.hisparc.nl/typo3/} -\textgreater{} 4.5
+
+Then check the requirements for the new TYPO3 version to see if an update of any package is required.
+
+
+\section{Make MySQL backup}
+\label{typo3:make-mysql-backup}
+This dumps the current hisparc\_t3 database in the hisparc\_t3\_latest.sql file
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }mysqldump \PYGZhy{}u hisparc \PYGZhy{}p hisparc\PYGZus{}t3 \PYGZgt{} hisparc\PYGZus{}t3\PYGZus{}latest.sql
+\PYG{o}{[}enter MySQL password\PYG{o}{]}
+\end{Verbatim}
+
+
+\section{Source code location}
+\label{typo3:source-code-location}
+Here we download the source code of the update. replace {[}version number{]} with the version number.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }\PYG{n+nb}{cd} /usr/local/src
+\PYG{n+nv}{\PYGZdl{} }wget http://garr.dl.sourceforge.net/project/typo3/TYPO3\PYGZpc{}20Source\PYGZpc{}20and\PYGZpc{}20Dummy/TYPO3\PYGZpc{}20\PYG{o}{[}version number\PYG{o}{]}/typo3\PYGZus{}src\PYGZhy{}\PYG{o}{[}version number\PYG{o}{]}.tar.gz
+\PYG{n+nv}{\PYGZdl{} }tar xfz typo3\PYGZus{}src\PYGZhy{}\PYG{o}{[}version number\PYG{o}{]}.tar.gz
+\PYG{n+nv}{\PYGZdl{} }chown www.www *
+\end{Verbatim}
+
+
+\section{Upgrading TYPO3 version}
+\label{typo3:upgrading-typo3-version}
+
+\subsection{Check requirements and deprecations}
+\label{typo3:check-requirements-and-deprecations}
+Check the \href{http://wiki.typo3.org/Upgrade}{TYPO3 Upgrade} page for any new requirements and deprecations.
+
+
+\subsection{Use new source files}
+\label{typo3:use-new-source-files}
+Link to new source files, correct permissions and enable TYPO3 install tool.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }\PYG{n+nb}{cd} /usr/local/www/web
+\PYG{n+nv}{\PYGZdl{} }ln \PYGZhy{}f \PYGZhy{}s /usr/local/src/typo3\PYGZus{}src\PYGZhy{}\PYG{o}{[}version number\PYG{o}{]}/* .
+\PYG{n+nv}{\PYGZdl{} }chown \PYGZhy{}h www.www *
+\end{Verbatim}
+
+
+\subsection{Install the new version}
+\label{typo3:install-the-new-version}
+Enable the Install Tool
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }touch typo3conf/ENABLE\PYGZus{}INSTALL\PYGZus{}TOOL
+\end{Verbatim}
+
+Now run the Install Tool to migrate to the new version.
+The database needs to be updated, several times.
+Then the Wizard will easily guide you through the changes that need to be made.
+\begin{enumerate}
+\item {} \begin{description}
+\item[{Enter the install tool.}] \leavevmode\begin{itemize}
+\item {} 
+\href{http://www.hisparc.nl/typo3/install/}{http://www.hisparc.nl/typo3/install/}
+
+\item {} 
+Enter the Password.
+
+\end{itemize}
+
+\end{description}
+
+\item {} \begin{description}
+\item[{Analyse and update database:}] \leavevmode\begin{itemize}
+\item {} 
+Go to section ``Database Analyzer''.
+
+\item {} 
+Click ``Update required tables''.
+
+\item {} 
+Click ``COMPARE'' and ``IMPORT'' and apply the proposed changes.
+
+\end{itemize}
+
+\end{description}
+
+\item {} \begin{description}
+\item[{Go through the Upgrade Wizard:}] \leavevmode\begin{itemize}
+\item {} 
+Go to section ``Upgrade Wizard''.
+
+\item {} 
+Set the compatibility version.
+
+\item {} 
+Go through the other proposed changes.
+
+\end{itemize}
+
+\end{description}
+
+\item {} \begin{description}
+\item[{Remove temp\_CACHED files:}] \leavevmode\begin{itemize}
+\item {} 
+Go to section ``Edit files in typo3conf/''.
+
+\item {} 
+Choose the option `Delete all temp\_CACHED* files'.
+
+\end{itemize}
+
+\end{description}
+
+\item {} \begin{description}
+\item[{Update DB Reference index}] \leavevmode\begin{itemize}
+\item {} 
+In the Backend click on ``DB Check'' under ``Admin Tools''.
+
+\item {} 
+Select ``Manage Reference index'' from the drop down list.
+
+\item {} 
+Run ``Check reference index'', if there are changes to be made, click ``update reference index''.
+
+\end{itemize}
+
+\end{description}
+
+\end{enumerate}
+
+
+\subsection{Upgrade the extensions}
+\label{typo3:upgrade-the-extensions}
+Update TYPO3 Extensions in Ext Manager -\textgreater{} Check for extension updates;
+Be careful not to update extensions to the very latest version, check version compatibility.
+Remove any unused extensions.
+Use the ... to check the usage of the extensions
+
+
+\section{Upgrade from 4.2.8 (to 4.3.14) to 4.4.15}
+\label{typo3:upgrade-from-4-2-8-to-4-3-14-to-4-4-15}
+Follow the {\hyperref[typo3:upgrading-typo3-version]{Upgrading TYPO3 version}} instructions above.
+
+TYPO3 4.3+ requires PHP 5.2.0 or newer with the following extensions:
+filter, \emph{GD2}, JSON, mysql, pcre, session, SPL, standard, xml
+
+
+\subsection{Upgrade PHP from 5.1.6 to 5.3.19}
+\label{typo3:upgrade-php-from-5-1-6-to-5-3-19}
+CentOS 5.x comes with PHP 5.1.x, but 5.3 is required, there is a php53 package,
+but a package named php can also be found, which is also more up to date.
+
+\href{http://www.webtatic.com/packages/php53/}{http://www.webtatic.com/packages/php53/}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }rpm \PYGZhy{}Uvh http://repo.webtatic.com/yum/centos/5/latest.rpm
+\PYG{n+nv}{\PYGZdl{} }yum \PYGZhy{}\PYGZhy{}enablerepo\PYG{o}{=}webtatic update php
+ Package                  Arch     Version       Repository   \PYG{n+nv}{Size}
+\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}
+Updating:
+ php                      x86\PYGZus{}64   5.3.19\PYGZhy{}1.w5   webtatic    1.4 M
+Updating \PYG{k}{for }dependencies:
+ php\PYGZhy{}cli                  x86\PYGZus{}64   5.3.19\PYGZhy{}1.w5   webtatic    2.6 M
+ php\PYGZhy{}common               x86\PYGZus{}64   5.3.19\PYGZhy{}1.w5   webtatic    661 k
+ php\PYGZhy{}mysql                x86\PYGZus{}64   5.3.19\PYGZhy{}1.w5   webtatic     91 k
+ php\PYGZhy{}pdo                  x86\PYGZus{}64   5.3.19\PYGZhy{}1.w5   webtatic     66 k
+Upgrade       5 Package\PYG{o}{(}s\PYG{o}{)}
+Total download size: 4.8 M
+Is this ok \PYG{o}{[}y/N\PYG{o}{]}:
+\PYG{n+nv}{\PYGZdl{} }y
+warning: rpmts\PYGZus{}HdrFromFdno: Header V3 DSA signature: NOKEY, key ID cf4c4ff9
+Importing GPG key 0xCF4C4FF9 \PYG{l+s+s2}{\PYGZdq{}Andy Thompson \PYGZlt{}andy@webtatic.com\PYGZgt{}\PYGZdq{}} from /etc/pki/rpm\PYGZhy{}gpg/RPM\PYGZhy{}GPG\PYGZhy{}KEY\PYGZhy{}webtatic\PYGZhy{}andy
+Is this ok \PYG{o}{[}y/N\PYG{o}{]}:
+\PYG{n+nv}{\PYGZdl{} }y
+Updated:
+  php.x86\PYGZus{}64 0:5.3.19\PYGZhy{}1.w5
+Dependency Updated:
+  php\PYGZhy{}cli.x86\PYGZus{}64 0:5.3.19\PYGZhy{}1.w5     php\PYGZhy{}common.x86\PYGZus{}64 0:5.3.19\PYGZhy{}1.w5
+  php\PYGZhy{}mysql.x86\PYGZus{}64 0:5.3.19\PYGZhy{}1.w5   php\PYGZhy{}pdo.x86\PYGZus{}64 0:5.3.19\PYGZhy{}1.w5
+\PYG{n+nv}{\PYGZdl{} }php \PYGZhy{}v
+PHP 5.3.19 \PYG{o}{(}cli\PYG{o}{)} \PYG{o}{(}built: Nov 25 2012 13:46:54\PYG{o}{)}
+\PYG{n+nv}{\PYGZdl{} }/sbin/service httpd reload
+\end{Verbatim}
+
+Other possibility
+\begin{quote}
+
+\href{http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/}{http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/}
+\end{quote}
+
+
+\subsection{Install missing PHP module}
+\label{typo3:install-missing-php-module}
+Check installed modules using a simple php page with:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZlt{}?php} \PYG{n+nb}{phpinfo}\PYG{p}{()} \PYG{c+cp}{?\PYGZgt{}}
+\end{Verbatim}
+
+It appears that GD is not yet installed.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }yum \PYGZhy{}\PYGZhy{}enablerepo\PYG{o}{=}webtatic install php\PYGZhy{}gd
+ Package      Arch    Version         Repository     \PYG{n+nv}{Size}
+\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}
+Installing:
+ php\PYGZhy{}gd       x86\PYGZus{}64  5.3.19\PYGZhy{}1.w5     webtatic      108 k
+Install       1 Package\PYG{o}{(}s\PYG{o}{)}
+Total download size: 108 k
+Is this ok \PYG{o}{[}y/N\PYG{o}{]}:
+\PYG{n+nv}{\PYGZdl{} }y
+Installed:
+  php\PYGZhy{}gd.x86\PYGZus{}64 0:5.3.19\PYGZhy{}1.w5
+\PYG{n+nv}{\PYGZdl{} }/sbin/service httpd reload
+\end{Verbatim}
+
+
+\subsection{Add gzipping to .htaccess}
+\label{typo3:add-gzipping-to-htaccess}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }vim .htaccess
+\PYGZlt{}FilesMatch \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}.js\PYGZbs{}.gzip\PYGZdl{}\PYGZdq{}}\PYGZgt{}
+  AddType \PYG{l+s+s2}{\PYGZdq{}text/javascript\PYGZdq{}} .gzip
+\PYGZlt{}/FilesMatch\PYGZgt{}
+\PYGZlt{}FilesMatch \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}.css\PYGZbs{}.gzip\PYGZdl{}\PYGZdq{}}\PYGZgt{}
+  AddType \PYG{l+s+s2}{\PYGZdq{}text/css\PYGZdq{}} .gzip
+\PYGZlt{}/FilesMatch\PYGZgt{}
+AddEncoding gzip .gzip
+\end{Verbatim}
+
+
+\subsection{Deprecation error GPvar}
+\label{typo3:deprecation-error-gpvar}
+Deprecation error in the logs:
+\begin{quote}
+
+Using gpvar in TypoScript getText is deprecated since TYPO3 4.3 - Use gp instead of gpvar.
+\end{quote}
+
+Look for \emph{gpvar} in Backend; found one occurrence, replace \emph{GPvar} by \emph{GP} and reload httpd
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }/sbin/service httpd reload
+\end{Verbatim}
+
+
+\section{Upgrade from 4.4.15 to 4.5.22 LTS}
+\label{typo3:upgrade-from-4-4-15-to-4-5-22-lts}
+\emph{This is a Long Term Support version of TYPO3}
+
+Follow the {\hyperref[typo3:upgrading-typo3-version]{Upgrading TYPO3 version}} instructions above.
+
+Update tt\_news to 3.1.0, run the included updater.
+
+Modify the file typo3conf/ext/tt\_news/ext\_tables.php
+\begin{quote}
+
+-enableConfigValidation = 1
++enableConfigValidation = 0
+\end{quote}
+
+
+\subsection{Deprecation error, use UTF-8}
+\label{typo3:deprecation-error-use-utf-8}
+This error appeared in the deprecation log located at
+\emph{/usr/local/www/web/typo3conf/deprecation\_{[}..{]}.log}
+\begin{quote}
+
+This TYPO3 installation is using the \$TYPO3\_CONF\_VARS{[}'SYS'{]}{[}'setDBinit'{]} property with the following value:
+
+It looks like UTF-8 is not used for this connection.
+
+Everything other than UTF-8 is deprecated since TYPO3 4.5.
+The DB, its connection and TYPO3 should be migrated to UTF-8 therefore. Please check your setup.
+\end{quote}
+
+Update MySQL Tables to UTF-8
+
+\href{http://wiki.typo3.org/UTF-8\_support\#Convert\_an\_already\_existing\_database\_to\_UTF-8}{Convert existing database to UTF-8}
+
+Follow `Possibility 1'
+\begin{quote}
+
+mysqldump -u hisparc -p --max\_allowed\_packet=10000000 hisparc\_t3 \textgreater{} hisparc\_t3\_130319.sql
+cd /usr/local/www/web/fileadmin
+wget ``\href{http://dcbjht.home.xs4all.nl/typo3/db\_utf8\_fix.zip}{http://dcbjht.home.xs4all.nl/typo3/db\_utf8\_fix.zip}''
+unzip db\_utf8\_fix.zip
+vim  db\_utf8\_fix.php
+\href{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}
+{[}if all OK -\textgreater{} change TRUE in line 9 to False{]}
+\href{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}
+\end{quote}
+
+Ensure the following config is set:
+\begin{quote}
+
+\$TYPO3\_CONF\_VARS{[}'SYS'{]}{[}'setDBinit'{]} = `SET NAMES utf8;';
+\end{quote}
+
+The following was already active:
+\begin{quote}
+
+\$TYPO3\_CONF\_VARS{[}'BE'{]}{[}'forceCharset'{]} = `utf-8';
+\end{quote}
+
+Special characters where not correctly migrated to new encoding.
+Install \emph{find\_and\_replace} extension, using this these occurances were fixed.
+The find and replace extension does not fix all occurrences (tt\_news).
+Also used this to remove unneeded excess from link tags (\emph{- external-link `opens in new ...'})
+
+
+\section{Upgrade from 4.5.22 to 4.6.15}
+\label{typo3:upgrade-from-4-5-22-to-4-6-15}
+Todo.
+
+
+\section{Upgrade from 4.6.15 to 4.7.7}
+\label{typo3:upgrade-from-4-6-15-to-4-7-7}
+Todo.
+
+
+\section{Upgrade from 4.7.7 to 6.0.0}
+\label{typo3:upgrade-from-4-7-7-to-6-0-0}
+Requires MySQL 5.1.x-5.5.x
 
 
 \chapter{Indices and tables}

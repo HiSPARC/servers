@@ -6,7 +6,7 @@
 Welcome to HiSPARC Server Management's documentation!
 =====================================================
 
-Contents:
+Servers:
 
 .. toctree::
    :maxdepth: 1
@@ -15,6 +15,14 @@ Contents:
    pique
    tietar
    neckar
+
+Software:
+
+.. toctree::
+   :maxdepth: 1
+
+   typo3
+
 
 Indices and tables
 ==================

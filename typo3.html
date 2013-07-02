@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Upgrading of TYPO3 &mdash; HiSPARC servers 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/hisparc_style.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="HiSPARC servers 0.1 documentation" href="index.html" />
+    <link rel="prev" title="Installation of Neckar" href="neckar.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="neckar.html" title="Installation of Neckar"
+             accesskey="P">previous</a></li>
+        <li><a href="index.html">HiSPARC servers 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="upgrading-of-typo3">
+<h1>Upgrading of TYPO3<a class="headerlink" href="#upgrading-of-typo3" title="Permalink to this headline">¶</a></h1>
+<p>This describes how to update <a class="reference external" href="http://www.typo3.org">TYPO3</a>. General Upgrade instructions are available on <a class="reference external" href="http://wiki.typo3.org/Upgrade">TYPO3 Upgrade</a>. This guide is about applying these updates on neckar (<a class="reference internal" href="neckar.html"><em>Installation of Neckar</em></a>).</p>
+<div class="section" id="current-versions">
+<h2>Current versions<a class="headerlink" href="#current-versions" title="Permalink to this headline">¶</a></h2>
+<p>First check the versions of the OS, MySQL, Apache, PHP and TYPO3.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>cat /etc/redhat-release
+CentOS release 5.9 <span class="o">(</span>Final<span class="o">)</span>
+<span class="nv">$ </span>mysql --version
+mysql  Ver 14.12 Distrib 5.0.95
+<span class="nv">$ </span>httpd -v
+Server version: Apache/2.2.3
+<span class="nv">$ </span>php -v
+PHP 5.3.19
+<span class="nv">$ </span>yum list installed | grep php
+php.x86_64            5.3.19-1.w5
+php-cli.x86_64        5.3.19-1.w5
+php-common.x86_64     5.3.19-1.w5
+php-gd.x86_64         5.3.19-1.w5
+php-mysql.x86_64      5.3.19-1.w5
+php-pdo.x86_64        5.3.19-1.w5
+</pre></div>
+</div>
+<p>Check TYPO3 version at <a class="reference external" href="http://www.hisparc.nl/typo3/">http://www.hisparc.nl/typo3/</a> -&gt; 4.5</p>
+<p>Then check the requirements for the new TYPO3 version to see if an update of any package is required.</p>
+</div>
+<div class="section" id="make-mysql-backup">
+<h2>Make MySQL backup<a class="headerlink" href="#make-mysql-backup" title="Permalink to this headline">¶</a></h2>
+<p>This dumps the current hisparc_t3 database in the hisparc_t3_latest.sql file</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mysqldump -u hisparc -p hisparc_t3 &gt; hisparc_t3_latest.sql
+<span class="o">[</span>enter MySQL password<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="source-code-location">
+<h2>Source code location<a class="headerlink" href="#source-code-location" title="Permalink to this headline">¶</a></h2>
+<p>Here we download the source code of the update. replace [version number] with the version number.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src
+<span class="nv">$ </span>wget http://garr.dl.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20<span class="o">[</span>version number<span class="o">]</span>/typo3_src-<span class="o">[</span>version number<span class="o">]</span>.tar.gz
+<span class="nv">$ </span>tar xfz typo3_src-<span class="o">[</span>version number<span class="o">]</span>.tar.gz
+<span class="nv">$ </span>chown www.www *
+</pre></div>
+</div>
+</div>
+<div class="section" id="upgrading-typo3-version">
+<h2>Upgrading TYPO3 version<a class="headerlink" href="#upgrading-typo3-version" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="check-requirements-and-deprecations">
+<h3>Check requirements and deprecations<a class="headerlink" href="#check-requirements-and-deprecations" title="Permalink to this headline">¶</a></h3>
+<p>Check the <a class="reference external" href="http://wiki.typo3.org/Upgrade">TYPO3 Upgrade</a> page for any new requirements and deprecations.</p>
+</div>
+<div class="section" id="use-new-source-files">
+<h3>Use new source files<a class="headerlink" href="#use-new-source-files" title="Permalink to this headline">¶</a></h3>
+<p>Link to new source files, correct permissions and enable TYPO3 install tool.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/www/web
+<span class="nv">$ </span>ln -f -s /usr/local/src/typo3_src-<span class="o">[</span>version number<span class="o">]</span>/* .
+<span class="nv">$ </span>chown -h www.www *
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-the-new-version">
+<h3>Install the new version<a class="headerlink" href="#install-the-new-version" title="Permalink to this headline">¶</a></h3>
+<p>Enable the Install Tool</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>touch typo3conf/ENABLE_INSTALL_TOOL
+</pre></div>
+</div>
+<p>Now run the Install Tool to migrate to the new version.
+The database needs to be updated, several times.
+Then the Wizard will easily guide you through the changes that need to be made.</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Enter the install tool.</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.hisparc.nl/typo3/install/">http://www.hisparc.nl/typo3/install/</a></li>
+<li>Enter the Password.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Analyse and update database:</dt>
+<dd><ul class="first last simple">
+<li>Go to section &#8220;Database Analyzer&#8221;.</li>
+<li>Click &#8220;Update required tables&#8221;.</li>
+<li>Click &#8220;COMPARE&#8221; and &#8220;IMPORT&#8221; and apply the proposed changes.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Go through the Upgrade Wizard:</dt>
+<dd><ul class="first last simple">
+<li>Go to section &#8220;Upgrade Wizard&#8221;.</li>
+<li>Set the compatibility version.</li>
+<li>Go through the other proposed changes.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Remove temp_CACHED files:</dt>
+<dd><ul class="first last simple">
+<li>Go to section &#8220;Edit files in typo3conf/&#8221;.</li>
+<li>Choose the option &#8216;Delete all temp_CACHED* files&#8217;.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Update DB Reference index</dt>
+<dd><ul class="first last simple">
+<li>In the Backend click on &#8220;DB Check&#8221; under &#8220;Admin Tools&#8221;.</li>
+<li>Select &#8220;Manage Reference index&#8221; from the drop down list.</li>
+<li>Run &#8220;Check reference index&#8221;, if there are changes to be made, click &#8220;update reference index&#8221;.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+<div class="section" id="upgrade-the-extensions">
+<h3>Upgrade the extensions<a class="headerlink" href="#upgrade-the-extensions" title="Permalink to this headline">¶</a></h3>
+<p>Update TYPO3 Extensions in Ext Manager -&gt; Check for extension updates;
+Be careful not to update extensions to the very latest version, check version compatibility.
+Remove any unused extensions.
+Use the ... to check the usage of the extensions</p>
+</div>
+</div>
+<div class="section" id="upgrade-from-4-2-8-to-4-3-14-to-4-4-15">
+<h2>Upgrade from 4.2.8 (to 4.3.14) to 4.4.15<a class="headerlink" href="#upgrade-from-4-2-8-to-4-3-14-to-4-4-15" title="Permalink to this headline">¶</a></h2>
+<p>Follow the <a class="reference internal" href="#upgrading-typo3-version">Upgrading TYPO3 version</a> instructions above.</p>
+<p>TYPO3 4.3+ requires PHP 5.2.0 or newer with the following extensions:
+filter, <em>GD2</em>, JSON, mysql, pcre, session, SPL, standard, xml</p>
+<div class="section" id="upgrade-php-from-5-1-6-to-5-3-19">
+<h3>Upgrade PHP from 5.1.6 to 5.3.19<a class="headerlink" href="#upgrade-php-from-5-1-6-to-5-3-19" title="Permalink to this headline">¶</a></h3>
+<p>CentOS 5.x comes with PHP 5.1.x, but 5.3 is required, there is a php53 package,
+but a package named php can also be found, which is also more up to date.</p>
+<p><a class="reference external" href="http://www.webtatic.com/packages/php53/">http://www.webtatic.com/packages/php53/</a></p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>rpm -Uvh http://repo.webtatic.com/yum/centos/5/latest.rpm
+<span class="nv">$ </span>yum --enablerepo<span class="o">=</span>webtatic update php
+ Package                  Arch     Version       Repository   <span class="nv">Size</span>
+<span class="o">===================================================================</span>
+Updating:
+ php                      x86_64   5.3.19-1.w5   webtatic    1.4 M
+Updating <span class="k">for </span>dependencies:
+ php-cli                  x86_64   5.3.19-1.w5   webtatic    2.6 M
+ php-common               x86_64   5.3.19-1.w5   webtatic    661 k
+ php-mysql                x86_64   5.3.19-1.w5   webtatic     91 k
+ php-pdo                  x86_64   5.3.19-1.w5   webtatic     66 k
+Upgrade       5 Package<span class="o">(</span>s<span class="o">)</span>
+Total download size: 4.8 M
+Is this ok <span class="o">[</span>y/N<span class="o">]</span>:
+<span class="nv">$ </span>y
+warning: rpmts_HdrFromFdno: Header V3 DSA signature: NOKEY, key ID cf4c4ff9
+Importing GPG key 0xCF4C4FF9 <span class="s2">&quot;Andy Thompson &lt;andy@webtatic.com&gt;&quot;</span> from /etc/pki/rpm-gpg/RPM-GPG-KEY-webtatic-andy
+Is this ok <span class="o">[</span>y/N<span class="o">]</span>:
+<span class="nv">$ </span>y
+Updated:
+  php.x86_64 0:5.3.19-1.w5
+Dependency Updated:
+  php-cli.x86_64 0:5.3.19-1.w5     php-common.x86_64 0:5.3.19-1.w5
+  php-mysql.x86_64 0:5.3.19-1.w5   php-pdo.x86_64 0:5.3.19-1.w5
+<span class="nv">$ </span>php -v
+PHP 5.3.19 <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Nov 25 2012 13:46:54<span class="o">)</span>
+<span class="nv">$ </span>/sbin/service httpd reload
+</pre></div>
+</div>
+<p>Other possibility</p>
+<blockquote>
+<div><a class="reference external" href="http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/">http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/</a></div></blockquote>
+</div>
+<div class="section" id="install-missing-php-module">
+<h3>Install missing PHP module<a class="headerlink" href="#install-missing-php-module" title="Permalink to this headline">¶</a></h3>
+<p>Check installed modules using a simple php page with:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="nb">phpinfo</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<p>It appears that GD is not yet installed.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>yum --enablerepo<span class="o">=</span>webtatic install php-gd
+ Package      Arch    Version         Repository     <span class="nv">Size</span>
+<span class="o">==========================================================</span>
+Installing:
+ php-gd       x86_64  5.3.19-1.w5     webtatic      108 k
+Install       1 Package<span class="o">(</span>s<span class="o">)</span>
+Total download size: 108 k
+Is this ok <span class="o">[</span>y/N<span class="o">]</span>:
+<span class="nv">$ </span>y
+Installed:
+  php-gd.x86_64 0:5.3.19-1.w5
+<span class="nv">$ </span>/sbin/service httpd reload
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-gzipping-to-htaccess">
+<h3>Add gzipping to .htaccess<a class="headerlink" href="#add-gzipping-to-htaccess" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>vim .htaccess
+&lt;FilesMatch <span class="s2">&quot;\.js\.gzip$&quot;</span>&gt;
+  AddType <span class="s2">&quot;text/javascript&quot;</span> .gzip
+&lt;/FilesMatch&gt;
+&lt;FilesMatch <span class="s2">&quot;\.css\.gzip$&quot;</span>&gt;
+  AddType <span class="s2">&quot;text/css&quot;</span> .gzip
+&lt;/FilesMatch&gt;
+AddEncoding gzip .gzip
+</pre></div>
+</div>
+</div>
+<div class="section" id="deprecation-error-gpvar">
+<h3>Deprecation error GPvar<a class="headerlink" href="#deprecation-error-gpvar" title="Permalink to this headline">¶</a></h3>
+<p>Deprecation error in the logs:</p>
+<blockquote>
+<div>Using gpvar in TypoScript getText is deprecated since TYPO3 4.3 - Use gp instead of gpvar.</div></blockquote>
+<p>Look for <cite>gpvar</cite> in Backend; found one occurrence, replace <cite>GPvar</cite> by <cite>GP</cite> and reload httpd</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>/sbin/service httpd reload
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="upgrade-from-4-4-15-to-4-5-22-lts">
+<h2>Upgrade from 4.4.15 to 4.5.22 LTS<a class="headerlink" href="#upgrade-from-4-4-15-to-4-5-22-lts" title="Permalink to this headline">¶</a></h2>
+<p><em>This is a Long Term Support version of TYPO3</em></p>
+<p>Follow the <a class="reference internal" href="#upgrading-typo3-version">Upgrading TYPO3 version</a> instructions above.</p>
+<p>Update tt_news to 3.1.0, run the included updater.</p>
+<p>Modify the file typo3conf/ext/tt_news/ext_tables.php</p>
+<blockquote>
+<div>-enableConfigValidation = 1
++enableConfigValidation = 0</div></blockquote>
+<div class="section" id="deprecation-error-use-utf-8">
+<h3>Deprecation error, use UTF-8<a class="headerlink" href="#deprecation-error-use-utf-8" title="Permalink to this headline">¶</a></h3>
+<p>This error appeared in the deprecation log located at
+<cite>/usr/local/www/web/typo3conf/deprecation_[..].log</cite></p>
+<blockquote>
+<div><p>This TYPO3 installation is using the $TYPO3_CONF_VARS[&#8216;SYS&#8217;][&#8216;setDBinit&#8217;] property with the following value:</p>
+<p>It looks like UTF-8 is not used for this connection.</p>
+<p>Everything other than UTF-8 is deprecated since TYPO3 4.5.
+The DB, its connection and TYPO3 should be migrated to UTF-8 therefore. Please check your setup.</p>
+</div></blockquote>
+<p>Update MySQL Tables to UTF-8</p>
+<p><a class="reference external" href="http://wiki.typo3.org/UTF-8_support#Convert_an_already_existing_database_to_UTF-8">Convert existing database to UTF-8</a></p>
+<p>Follow &#8216;Possibility 1&#8217;</p>
+<blockquote>
+<div>mysqldump -u hisparc -p &#8211;max_allowed_packet=10000000 hisparc_t3 &gt; hisparc_t3_130319.sql
+cd /usr/local/www/web/fileadmin
+wget &#8220;<a class="reference external" href="http://dcbjht.home.xs4all.nl/typo3/db_utf8_fix.zip">http://dcbjht.home.xs4all.nl/typo3/db_utf8_fix.zip</a>&#8221;
+unzip db_utf8_fix.zip
+vim  db_utf8_fix.php
+<a class="reference external" href="http://www.hisparc.nl/fileadmin/db_utf8_fix.php">http://www.hisparc.nl/fileadmin/db_utf8_fix.php</a>
+[if all OK -&gt; change TRUE in line 9 to False]
+<a class="reference external" href="http://www.hisparc.nl/fileadmin/db_utf8_fix.php">http://www.hisparc.nl/fileadmin/db_utf8_fix.php</a></div></blockquote>
+<p>Ensure the following config is set:</p>
+<blockquote>
+<div>$TYPO3_CONF_VARS[&#8216;SYS&#8217;][&#8216;setDBinit&#8217;] = &#8216;SET NAMES utf8;&#8217;;</div></blockquote>
+<p>The following was already active:</p>
+<blockquote>
+<div>$TYPO3_CONF_VARS[&#8216;BE&#8217;][&#8216;forceCharset&#8217;] = &#8216;utf-8&#8217;;</div></blockquote>
+<p>Special characters where not correctly migrated to new encoding.
+Install <cite>find_and_replace</cite> extension, using this these occurances were fixed.
+The find and replace extension does not fix all occurrences (tt_news).
+Also used this to remove unneeded excess from link tags (<cite>- external-link &#8216;opens in new ...&#8217;</cite>)</p>
+</div>
+</div>
+<div class="section" id="upgrade-from-4-5-22-to-4-6-15">
+<h2>Upgrade from 4.5.22 to 4.6.15<a class="headerlink" href="#upgrade-from-4-5-22-to-4-6-15" title="Permalink to this headline">¶</a></h2>
+<p>Todo.</p>
+</div>
+<div class="section" id="upgrade-from-4-6-15-to-4-7-7">
+<h2>Upgrade from 4.6.15 to 4.7.7<a class="headerlink" href="#upgrade-from-4-6-15-to-4-7-7" title="Permalink to this headline">¶</a></h2>
+<p>Todo.</p>
+</div>
+<div class="section" id="upgrade-from-4-7-7-to-6-0-0">
+<h2>Upgrade from 4.7.7 to 6.0.0<a class="headerlink" href="#upgrade-from-4-7-7-to-6-0-0" title="Permalink to this headline">¶</a></h2>
+<p>Requires MySQL 5.1.x-5.5.x</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Upgrading of TYPO3</a><ul>
+<li><a class="reference internal" href="#current-versions">Current versions</a></li>
+<li><a class="reference internal" href="#make-mysql-backup">Make MySQL backup</a></li>
+<li><a class="reference internal" href="#source-code-location">Source code location</a></li>
+<li><a class="reference internal" href="#upgrading-typo3-version">Upgrading TYPO3 version</a><ul>
+<li><a class="reference internal" href="#check-requirements-and-deprecations">Check requirements and deprecations</a></li>
+<li><a class="reference internal" href="#use-new-source-files">Use new source files</a></li>
+<li><a class="reference internal" href="#install-the-new-version">Install the new version</a></li>
+<li><a class="reference internal" href="#upgrade-the-extensions">Upgrade the extensions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#upgrade-from-4-2-8-to-4-3-14-to-4-4-15">Upgrade from 4.2.8 (to 4.3.14) to 4.4.15</a><ul>
+<li><a class="reference internal" href="#upgrade-php-from-5-1-6-to-5-3-19">Upgrade PHP from 5.1.6 to 5.3.19</a></li>
+<li><a class="reference internal" href="#install-missing-php-module">Install missing PHP module</a></li>
+<li><a class="reference internal" href="#add-gzipping-to-htaccess">Add gzipping to .htaccess</a></li>
+<li><a class="reference internal" href="#deprecation-error-gpvar">Deprecation error GPvar</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#upgrade-from-4-4-15-to-4-5-22-lts">Upgrade from 4.4.15 to 4.5.22 LTS</a><ul>
+<li><a class="reference internal" href="#deprecation-error-use-utf-8">Deprecation error, use UTF-8</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#upgrade-from-4-5-22-to-4-6-15">Upgrade from 4.5.22 to 4.6.15</a></li>
+<li><a class="reference internal" href="#upgrade-from-4-6-15-to-4-7-7">Upgrade from 4.6.15 to 4.7.7</a></li>
+<li><a class="reference internal" href="#upgrade-from-4-7-7-to-6-0-0">Upgrade from 4.7.7 to 6.0.0</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="neckar.html"
+                        title="previous chapter">Installation of Neckar</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/typo3.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="neckar.html" title="Installation of Neckar"
+             >previous</a></li>
+        <li><a href="index.html">HiSPARC servers 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009-2013, HiSPARC.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

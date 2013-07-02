@@ -35,4 +35,14 @@
 \BOOKMARK [1][-]{section.4.2}{MySQL Server}{chapter.4}% 35
 \BOOKMARK [1][-]{section.4.3}{HiSPARC website}{chapter.4}% 36
 \BOOKMARK [1][-]{section.4.4}{Website}{chapter.4}% 37
-\BOOKMARK [0][-]{chapter.5}{Indices and tables}{}% 38
+\BOOKMARK [0][-]{chapter.5}{Upgrading of TYPO3}{}% 38
+\BOOKMARK [1][-]{section.5.1}{Current versions}{chapter.5}% 39
+\BOOKMARK [1][-]{section.5.2}{Make MySQL backup}{chapter.5}% 40
+\BOOKMARK [1][-]{section.5.3}{Source code location}{chapter.5}% 41
+\BOOKMARK [1][-]{section.5.4}{Upgrading TYPO3 version}{chapter.5}% 42
+\BOOKMARK [1][-]{section.5.5}{Upgrade from 4.2.8 \(to 4.3.14\) to 4.4.15}{chapter.5}% 43
+\BOOKMARK [1][-]{section.5.6}{Upgrade from 4.4.15 to 4.5.22 LTS}{chapter.5}% 44
+\BOOKMARK [1][-]{section.5.7}{Upgrade from 4.5.22 to 4.6.15}{chapter.5}% 45
+\BOOKMARK [1][-]{section.5.8}{Upgrade from 4.6.15 to 4.7.7}{chapter.5}% 46
+\BOOKMARK [1][-]{section.5.9}{Upgrade from 4.7.7 to 6.0.0}{chapter.5}% 47
+\BOOKMARK [0][-]{chapter.6}{Indices and tables}{}% 48

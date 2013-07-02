@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  28 JUN 2013 16:35
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  2 JUL 2013 12:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -881,7 +881,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 120--120
 
  []
 
-<logo.pdf, id=157, 148.68349pt x 135.05257pt>
+<logo.pdf, id=197, 148.68349pt x 135.05257pt>
 File: logo.pdf Graphic file (type pdf)
  <use logo.pdf>
 Package pdftex.def Info: logo.pdf used on input line 120.
@@ -919,7 +919,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.47 ...line {5}Indices and tables}{31}{chapter.5}
+l.47 ...line {5}Upgrading of TYPO3}{31}{chapter.5}
                                                    [1
 
 ])
@@ -993,26 +993,48 @@ Chapter 4.
 
 ]
 Chapter 5.
+[31] [32] [33] [34]
+Underfull \hbox (badness 10000) in paragraph at lines 2033--2041
+[]\T1/ptm/m/n/10.95 mysqldump -u his-parc -p --max_allowed_packet=10000000 his-
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2033--2041
+\T1/ptm/m/n/10.95 parc_t3 > his-parc_t3_130319.sql cd /usr/local/www/web/filead
+min wget
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2033--2041
+\T1/ptm/m/n/10.95 ``[][]http://dcbjht.home.xs4all.nl/typo3/db_utf8_fix.zip[][]'
+' un-zip db_utf8_fix.zip vim
+ []
+
+[35] [36
+
+]
+Chapter 6.
 (./HiSPARCservers.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1739.
- [31]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1739.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2093.
+ [37]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2093.
  (./HiSPARCservers.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1739.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1739.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2093.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2093.
 
 Package rerunfilecheck Info: File `HiSPARCservers.out' has not changed.
-(rerunfilecheck)             Checksum: D848D420A4C1B3ABCBF60F8B84F247D3;2380.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1739.
+(rerunfilecheck)             Checksum: BDA2C5E283111D43BBDE9C6314B7F41C;3092.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2093.
  ) 
 Here is how much of TeX's memory you used:
- 9041 strings out of 493488
- 125930 string characters out of 3141326
- 227428 words of memory out of 3000000
- 12013 multiletter control sequences out of 15000+200000
+ 9101 strings out of 493488
+ 127027 string characters out of 3141326
+ 227566 words of memory out of 3000000
+ 12043 multiletter control sequences out of 15000+200000
  62150 words of font info for 75 fonts, out of 3000000 for 9000
  958 hyphenation exceptions out of 8191
- 37i,11n,49p,838b,470s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 37i,11n,49p,838b,497s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/te
 xlive/2012/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/20
@@ -1023,10 +1045,10 @@ pe1/urw/helvetic/uhvbo8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/ur
 w/times/utmb8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/urw/times/ut
 mr8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
 
-Output written on HiSPARCservers.pdf (35 pages, 157410 bytes).
+Output written on HiSPARCservers.pdf (41 pages, 182725 bytes).
 PDF statistics:
- 421 PDF objects out of 1000 (max. 8388607)
- 365 compressed objects within 4 object streams
- 82 named destinations out of 1000 (max. 500000)
- 330 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 533 PDF objects out of 1000 (max. 8388607)
+ 470 compressed objects within 5 object streams
+ 112 named destinations out of 1000 (max. 500000)
+ 410 words of extra memory for PDF output out of 10000 (max. 10000000)
 
