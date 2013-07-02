@@ -44,23 +44,32 @@
 \contentsline {section}{\numberline {4.3}HiSPARC website}{28}{section.4.3}
 \contentsline {subsection}{\numberline {4.3.1}Prerequisites}{28}{subsection.4.3.1}
 \contentsline {section}{\numberline {4.4}Website}{28}{section.4.4}
-\contentsline {chapter}{\numberline {5}Upgrading of TYPO3}{31}{chapter.5}
+\contentsline {chapter}{\numberline {5}Upgrading of Nagios}{31}{chapter.5}
 \contentsline {section}{\numberline {5.1}Current versions}{31}{section.5.1}
-\contentsline {section}{\numberline {5.2}Make MySQL backup}{31}{section.5.2}
-\contentsline {section}{\numberline {5.3}Source code location}{31}{section.5.3}
-\contentsline {section}{\numberline {5.4}Upgrading TYPO3 version}{32}{section.5.4}
-\contentsline {subsection}{\numberline {5.4.1}Check requirements and deprecations}{32}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {5.4.2}Use new source files}{32}{subsection.5.4.2}
-\contentsline {subsection}{\numberline {5.4.3}Install the new version}{32}{subsection.5.4.3}
-\contentsline {subsection}{\numberline {5.4.4}Upgrade the extensions}{33}{subsection.5.4.4}
-\contentsline {section}{\numberline {5.5}Upgrade from 4.2.8 (to 4.3.14) to 4.4.15}{33}{section.5.5}
-\contentsline {subsection}{\numberline {5.5.1}Upgrade PHP from 5.1.6 to 5.3.19}{33}{subsection.5.5.1}
-\contentsline {subsection}{\numberline {5.5.2}Install missing PHP module}{34}{subsection.5.5.2}
-\contentsline {subsection}{\numberline {5.5.3}Add gzipping to .htaccess}{34}{subsection.5.5.3}
-\contentsline {subsection}{\numberline {5.5.4}Deprecation error GPvar}{34}{subsection.5.5.4}
-\contentsline {section}{\numberline {5.6}Upgrade from 4.4.15 to 4.5.22 LTS}{34}{section.5.6}
-\contentsline {subsection}{\numberline {5.6.1}Deprecation error, use UTF-8}{35}{subsection.5.6.1}
-\contentsline {section}{\numberline {5.7}Upgrade from 4.5.22 to 4.6.15}{35}{section.5.7}
-\contentsline {section}{\numberline {5.8}Upgrade from 4.6.15 to 4.7.7}{35}{section.5.8}
-\contentsline {section}{\numberline {5.9}Upgrade from 4.7.7 to 6.0.0}{35}{section.5.9}
-\contentsline {chapter}{\numberline {6}Indices and tables}{37}{chapter.6}
+\contentsline {section}{\numberline {5.2}Upgrade from 3.2.3 to 3.5.0}{31}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Install update}{32}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Update config files}{32}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Verify config}{34}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Fix Nagios Daemon}{34}{subsection.5.2.4}
+\contentsline {subsection}{\numberline {5.2.5}Start services}{34}{subsection.5.2.5}
+\contentsline {subsection}{\numberline {5.2.6}Upgrade Apache to latest 2.2.x}{34}{subsection.5.2.6}
+\contentsline {chapter}{\numberline {6}Upgrading of TYPO3}{37}{chapter.6}
+\contentsline {section}{\numberline {6.1}Current versions}{37}{section.6.1}
+\contentsline {section}{\numberline {6.2}Make MySQL backup}{37}{section.6.2}
+\contentsline {section}{\numberline {6.3}Source code location}{37}{section.6.3}
+\contentsline {section}{\numberline {6.4}Upgrading TYPO3 version}{38}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Check requirements and deprecations}{38}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}Use new source files}{38}{subsection.6.4.2}
+\contentsline {subsection}{\numberline {6.4.3}Install the new version}{38}{subsection.6.4.3}
+\contentsline {subsection}{\numberline {6.4.4}Upgrade the extensions}{39}{subsection.6.4.4}
+\contentsline {section}{\numberline {6.5}Upgrade from 4.2.8 (to 4.3.14) to 4.4.15}{39}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}Upgrade PHP from 5.1.6 to 5.3.19}{39}{subsection.6.5.1}
+\contentsline {subsection}{\numberline {6.5.2}Install missing PHP module}{40}{subsection.6.5.2}
+\contentsline {subsection}{\numberline {6.5.3}Add gzipping to .htaccess}{40}{subsection.6.5.3}
+\contentsline {subsection}{\numberline {6.5.4}Deprecation error GPvar}{40}{subsection.6.5.4}
+\contentsline {section}{\numberline {6.6}Upgrade from 4.4.15 to 4.5.22 LTS}{40}{section.6.6}
+\contentsline {subsection}{\numberline {6.6.1}Deprecation error, use UTF-8}{41}{subsection.6.6.1}
+\contentsline {section}{\numberline {6.7}Upgrade from 4.5.22 to 4.6.15}{41}{section.6.7}
+\contentsline {section}{\numberline {6.8}Upgrade from 4.6.15 to 4.7.7}{41}{section.6.8}
+\contentsline {section}{\numberline {6.9}Upgrade from 4.7.7 to 6.0.0}{41}{section.6.9}
+\contentsline {chapter}{\numberline {7}Indices and tables}{43}{chapter.7}

@@ -1721,6 +1721,290 @@ Installation should now be complete.
 Software:
 
 
+\chapter{Upgrading of Nagios}
+\label{nagios:upgrading-of-nagios}\label{nagios::doc}
+This describes how to update \href{http://www.nagios.org}{Nagios Core}. This guide is about applying this update on tietar ({\hyperref[tietar::doc]{\emph{Installation of Tietar}}}).
+
+
+\section{Current versions}
+\label{nagios:current-versions}
+Check current version of the OS, Apache and PHP.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }cat /etc/redhat\PYGZhy{}release
+CentOS release 5.7 \PYG{o}{(}Final\PYG{o}{)}
+\PYG{n+nv}{\PYGZdl{} }httpd \PYGZhy{}v
+Server version: Apache/2.2.24
+\PYG{n+nv}{\PYGZdl{} }php \PYGZhy{}v
+PHP 5.1.6
+\PYG{n+nv}{\PYGZdl{} }yum list installed \textbar{} grep php
+php.i386                  5.1.6\PYGZhy{}27.el5\PYGZus{}5.3      installed
+php\PYGZhy{}cli.i386              5.1.6\PYGZhy{}27.el5\PYGZus{}5.3      installed
+php\PYGZhy{}common.i386           5.1.6\PYGZhy{}27.el5\PYGZus{}5.3      installed
+\end{Verbatim}
+
+Check the current version of Nagios and its packages.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }yum list installed \textbar{} grep nagios
+nagios.i386               3.5.0\PYGZhy{}1.el5           installed
+nagios\PYGZhy{}nsca.i386          2.7.2\PYGZhy{}4.el5.rf        installed
+nagios\PYGZhy{}nsca\PYGZhy{}client.i386   2.7.2\PYGZhy{}4.el5.rf        installed
+nagios\PYGZhy{}plugins.i386       1.4.16\PYGZhy{}1.el5.rf       installed
+nagios\PYGZhy{}plugins\PYGZhy{}nrpe.i386  2.14\PYGZhy{}1.el5.rf         installed
+\end{Verbatim}
+
+Check TYPO3 version at \href{http://www.hisparc.nl/typo3/}{http://www.hisparc.nl/typo3/} -\textgreater{} 4.5
+
+Then check the requirements for the new TYPO3 version to see if an update of any package is required.
+
+
+\section{Upgrade from 3.2.3 to 3.5.0}
+\label{nagios:upgrade-from-3-2-3-to-3-5-0}
+Nagios can be updated to 3.5.0 on CentOS, from the rpm/yum \href{http://pkgs.org/centos-5-rhel-5/centalt-i386/nagios-3.5.0-1.el5.i386.rpm.html}{CentALT} repo.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }\PYG{n+nb}{cd} /tmp
+\PYG{n+nv}{\PYGZdl{} }wget http://centos.alt.ru/repository/centos/5/i386/nagios\PYGZhy{}3.5.0\PYGZhy{}1.el5.i386.rpm
+\PYG{n+nv}{\PYGZdl{} }rpm \PYGZhy{}i \PYGZhy{}\PYGZhy{}test nagios\PYGZhy{}3.5.0\PYGZhy{}1.el5.i386.rpm
+warning: nagios\PYGZhy{}3.5.0\PYGZhy{}1.el5.i386.rpm: Header V3 DSA signature: NOKEY, key ID e9bc4ae1
+    file /etc/httpd/conf.d/nagios.conf from install of nagios\PYGZhy{}3.5.0\PYGZhy{}1.el5.i386 conflicts with file from package nagios\PYGZhy{}3.2.3\PYGZhy{}3.el5.rf.i386
+    file /etc/nagios/cgi.cfg from install of nagios\PYGZhy{}3.5.0\PYGZhy{}1.el5.i386 conflicts with file from package nagios\PYGZhy{}3.2.3\PYGZhy{}3.el5.rf.i386
+    file /etc/nagios/nagios.cfg from install of nagios\PYGZhy{}3.5.0\PYGZhy{}1.el5.i386 conflicts with file from package nagios\PYGZhy{}3.2.3\PYGZhy{}3.el5.rf.i386
+    file /etc/nagios/objects/commands.cfg from install of nagios\PYGZhy{}3.5.0\PYGZhy{}1.el5.i386 conflicts with file from package nagios\PYGZhy{}3.2.3\PYGZhy{}3.el5.rf.i386
+    file /etc/nagios/objects/timeperiods.cfg from install of nagios\PYGZhy{}3.5.0\PYGZhy{}1.el5.i386 conflicts with file from package nagios\PYGZhy{}3.2.3\PYGZhy{}3.el5.rf.i386
+    file /etc/rc.d/init.d/nagios from install of nagios\PYGZhy{}3.5.0\PYGZhy{}1.el5.i386 conflicts with file from package nagios\PYGZhy{}3.2.3\PYGZhy{}3.el5.rf.i386
+    file /usr/bin/nagiostats from install of nagios\PYGZhy{}3.5.0\PYGZhy{}1.el5.i386 conflicts with file from package nagios\PYGZhy{}3.2.3\PYGZhy{}3.el5.rf.i386
+\end{Verbatim}
+
+Check the current installed versions and available updates.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }yum list all \textbar{} grep nagios
+nagios.i386                 3.2.3\PYGZhy{}3.el5.rf              installed
+nagios.i386                 3.5.0\PYGZhy{}1.el5                 CentALT
+nagios\PYGZhy{}devel.i386           3.5.0\PYGZhy{}1.el5                 CentALT
+nagios\PYGZhy{}plugins.i386         1.4.15\PYGZhy{}2.el5.rf             installed
+nagios\PYGZhy{}plugins.i386         1.4.16\PYGZhy{}1.el5.rf             rpmforge
+nagios\PYGZhy{}plugins\PYGZhy{}nrpe.i386    2.12\PYGZhy{}1.el5.rf               installed
+nagios\PYGZhy{}plugins\PYGZhy{}nrpe.i386    2.14\PYGZhy{}1.el5.rf               rpmforge
+nagios\PYGZhy{}nsca.i386            2.7.2\PYGZhy{}2.el5.rf              installed
+nagios\PYGZhy{}nsca.i386            2.7.2\PYGZhy{}4.el5.rf              rpmforge
+nagios\PYGZhy{}nsca\PYGZhy{}client.i386     2.7.2\PYGZhy{}2.el5.rf              installed
+nagios\PYGZhy{}nsca\PYGZhy{}client.i386     2.7.2\PYGZhy{}4.el5.rf              rpmforge
+\end{Verbatim}
+
+
+\subsection{Install update}
+\label{nagios:install-update}
+Stop Nagios, NSCA and Apache.
+(Nagios was running in a screen, not yet as service, so stop it there.)
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }screen \PYGZhy{}r \PYG{o}{[}..\PYG{o}{]}
+\PYGZca{}c
+\PYG{n+nv}{\PYGZdl{} }\PYG{n+nb}{exit}
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service nsca stop
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service httpd stop
+
+\PYG{n+nv}{\PYGZdl{} }yum update nagios nagios\PYGZhy{}plugins nagios\PYGZhy{}plugins\PYGZhy{}nrpe nagios\PYGZhy{}nsca nagios\PYGZhy{}nsca\PYGZhy{}client
+\PYGZgt{} y
+Updating : nagios
+ warning: /etc/httpd/conf.d/nagios.conf created as /etc/httpd/conf.d/nagios.conf.rpmnew
+ warning: /etc/nagios/cgi.cfg created as /etc/nagios/cgi.cfg.rpmnew
+ warning: /etc/nagios/nagios.cfg created as /etc/nagios/nagios.cfg.rpmnew
+ warning: /etc/nagios/objects/commands.cfg created as /etc/nagios/objects/commands.cfg.rpmnew
+ warning: /etc/rc.d/init.d/nagios saved as /etc/rc.d/init.d/nagios.rpmsave
+Updated:
+ nagios.i386 0:3.5.0\PYGZhy{}1.el5
+ nagios\PYGZhy{}plugins.i386 0:1.4.16\PYGZhy{}1.el5.rf
+ nagios\PYGZhy{}plugins\PYGZhy{}nrpe.i386 0:2.14\PYGZhy{}1.el5.rf
+ nagios\PYGZhy{}nsca.i386 0:2.7.2\PYGZhy{}4.el5.rf
+ nagios\PYGZhy{}nsca\PYGZhy{}client.i386 0:2.7.2\PYGZhy{}4.el5.rf
+\end{Verbatim}
+
+
+\subsection{Update config files}
+\label{nagios:update-config-files}
+Using the *.rpmnew files as guides.
+
+/etc/httpd/conf.d/nagios.conf:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+- /usr/share/nagios
++ /usr/share/nagios/html
+- /usr/lib/nagios/cgi/
++ /usr/lib/nagios/cgi-bin/
+\end{Verbatim}
+
+/etc/nagios/cgi.cfg:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+- physical\_html\_path=/usr/share/nagios/
++ physical\_html\_path=/usr/share/nagios/html
++ result\_limit=0
+\end{Verbatim}
+
+/etc/nagios/nagios.cfg:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+- log\_file=/var/nagios/nagios.log
++ log\_file=/var/log/nagios/nagios.log
+- object\_cache\_file=/var/nagios/objects.cache
++ object\_cache\_file=/var/log/nagios/objects.cache
+- precached\_object\_file=/var/nagios/objects.precache
++ precached\_object\_file=/var/log/nagios/objects.precache
+
+- resource\_file=/etc/nagios/resource.cfg
++ resource\_file=/etc/nagios/private/resource.cfg
+
+- status\_file=/var/nagios/status.dat
++ status\_file=/var/log/nagios/status.dat
+
+? command\_file=/var/spool/nagios/cmd/nagios.cmd
+
+- lock\_file=/var/run/nagios.pid
++ lock\_file=/tmp/nagios.pid
+
+- temp\_file=/var/nagios/nagios.tmp
++ temp\_file=/var/log/nagios/nagios.tmp
+
+? log\_archive\_path=/var/log/nagios/archives
+
+- state\_retention\_file=/var/nagios/retention.dat
++ state\_retention\_file=/var/log/nagios/retention.dat
++ service\_check\_timeout\_state=c
+
+- p1\_file=/usr/bin/p1.pl
++ p1\_file=/usr/sbin/p1.pl
+
+- admin\_email=davidf@nikhef.nl
+- admin\_pager=davidf@nikhef.nl
++ admin\_email=adelaat@nikhef.nl
++ admin\_pager=adelaat@nikhef.nl
+\end{Verbatim}
+
+/etc/nagios/objects/commands.cfg:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+- /var/nagios/host-perfdata.out
+- /var/nagios/service-perfdata.out
++ /var/log/nagios/host-perfdata.out
++ /var/log/nagios/service-perfdata.out
+\end{Verbatim}
+
+/etc/nagios/nsca.cfg:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+- command\_file=/var/nagios/rw/nagios.cmd
++ command\_file=/var/spool/nagios/cmd/nagios.cmd
+- alternate\_dump\_file=/var/nagios/rw/nsca.dump
++ alternate\_dump\_file=/var/log/nagios/rw/nsca.dump
+\end{Verbatim}
+
+
+\subsection{Verify config}
+\label{nagios:verify-config}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }nagios \PYGZhy{}v /etc/nagios/nagios.cfg
+\end{Verbatim}
+
+
+\subsection{Fix Nagios Daemon}
+\label{nagios:fix-nagios-daemon}
+Before the update Nagios gave these errors when trying to start as service:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }service nagios start
+log:
+\PYG{o}{[}1365710071\PYG{o}{]} Failed to obtain lock on file /var/run/nagios.pid: Permission denied
+\PYG{o}{[}1365710071\PYG{o}{]} Bailing out due to errors encountered \PYG{k}{while }attempting to daemonize... \PYG{o}{(}\PYG{n+nv}{PID}\PYG{o}{=}15845\PYG{o}{)}
+\end{Verbatim}
+
+From: \href{http://h3x.no/2010/06/30/failed-to-obtain-lock-on-file-varrunnagios-pid-permission-denied}{Failed to obtain lock on file /var/run/nagios.pid}
+
+Changing the value of \code{lock\_file} in \code{/etc/nagios/nagios.cfg} from \code{/var/run/nagios.pid} to \code{/tmp/nagios.pid} allowed the PID to be written and the init script to succeed.
+
+Change lock\_file location to a place with read+write permissions.
+
+
+\subsection{Start services}
+\label{nagios:start-services}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service httpd start
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service nagios start
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service nsca start
+\end{Verbatim}
+
+
+\subsection{Upgrade Apache to latest 2.2.x}
+\label{nagios:upgrade-apache-to-latest-2-2-x}
+The latest Apache is in the CentALT repository
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }yum list httpd
+Installed Packages
+httpd.i386                  2.2.3\PYGZhy{}53.el5.centos.3       installed
+Available Packages
+httpd.i386                  2.2.24\PYGZhy{}1.el5                CentALT
+\end{Verbatim}
+
+Stop services
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service httpd stop
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service nagios stop
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service nsca stop
+\end{Verbatim}
+
+Update Apache
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }yum update httpd
+Dependencies \PYG{n+nv}{Resolved}
+
+\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}
+ Package                 Arch    Version          Repository     \PYG{n+nv}{Size}
+\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}
+Updating:
+ httpd                   i386    2.2.24\PYGZhy{}1.el5     CentALT       1.3 M
+Installing \PYG{k}{for }dependencies:
+ apr\PYGZhy{}util\PYGZhy{}ldap           i386    1.4.1\PYGZhy{}1.el5      CentALT        14 k
+ httpd\PYGZhy{}tools             i386    2.2.24\PYGZhy{}1.el5     CentALT        68 k
+Updating \PYG{k}{for }dependencies:
+ apr\PYGZhy{}util                i386    1.4.1\PYGZhy{}1.el5      CentALT        82 k
+
+Transaction \PYG{n+nv}{Summary}
+\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}
+Install       2 Package\PYG{o}{(}s\PYG{o}{)}
+Upgrade       2 Package\PYG{o}{(}s\PYG{o}{)}
+
+\PYGZgt{} y
+
+warning: /etc/httpd/conf/httpd.conf created as /etc/httpd/conf/httpd.conf.rpmnew
+
+Dependency Installed:
+ apr\PYGZhy{}util\PYGZhy{}ldap.i386 0:1.4.1\PYGZhy{}1.el5
+ httpd\PYGZhy{}tools.i386 0:2.2.24\PYGZhy{}1.el5
+
+Updated:
+  httpd.i386 0:2.2.24\PYGZhy{}1.el5
+
+Dependency Updated:
+  apr\PYGZhy{}util.i386 0:1.4.1\PYGZhy{}1.el5
+\end{Verbatim}
+
+Todo: update httpd.conf with new options from httpd.conf.rpmnew
+
+Start services
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service httpd start
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service nagios start
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service nsca start
+\end{Verbatim}
+
+
 \chapter{Upgrading of TYPO3}
 \label{typo3:upgrading-of-typo3}\label{typo3::doc}
 This describes how to update \href{http://www.typo3.org}{TYPO3}. General Upgrade instructions are available on \href{http://wiki.typo3.org/Upgrade}{TYPO3 Upgrade}. This guide is about applying these updates on neckar ({\hyperref[neckar::doc]{\emph{Installation of Neckar}}}).

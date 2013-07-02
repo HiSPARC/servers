@@ -21,6 +21,7 @@ Software:
 .. toctree::
    :maxdepth: 1
 
+   nagios
    typo3
 
 
