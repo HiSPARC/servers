@@ -166,9 +166,7 @@ http://www.webtatic.com/packages/php53/
     PHP 5.3.19 (cli) (built: Nov 25 2012 13:46:54)
     $ /sbin/service httpd reload
 
-Other possibility
-
-    http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/
+Other possibility: `Update CentOS 5 PHP 5.1 to PHP 5.3 <http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/>`_
 
 
 Install missing PHP module
@@ -216,11 +214,11 @@ Add gzipping to .htaccess
 Deprecation error GPvar
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Deprecation error in the logs:
+Deprecation error in the logs::
 
     Using gpvar in TypoScript getText is deprecated since TYPO3 4.3 - Use gp instead of gpvar.
 
-Look for `gpvar` in Backend; found one occurrence, replace `GPvar` by `GP` and reload httpd
+Look for ``gpvar`` in Backend; found one occurrence, replace ``GPvar`` by ``GP`` and reload httpd
 
 .. code-block:: sh
 
@@ -236,7 +234,7 @@ Follow the `Upgrading TYPO3 version`_ instructions above.
 
 Update tt_news to 3.1.0, run the included updater.
 
-Modify the file typo3conf/ext/tt\_news/ext\_tables.php
+Modify the file ``typo3conf/ext/tt\_news/ext\_tables.php``::
 
     -enableConfigValidation = 1
     +enableConfigValidation = 0
@@ -246,7 +244,7 @@ Deprecation error, use UTF-8
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This error appeared in the deprecation log located at
-`/usr/local/www/web/typo3conf/deprecation_[..].log`
+``/usr/local/www/web/typo3conf/deprecation_[..].log``::
 
     This TYPO3 installation is using the $TYPO3_CONF_VARS['SYS']['setDBinit'] property with the following value:
 
@@ -255,26 +253,25 @@ This error appeared in the deprecation log located at
     Everything other than UTF-8 is deprecated since TYPO3 4.5.
     The DB, its connection and TYPO3 should be migrated to UTF-8 therefore. Please check your setup.
 
-Update MySQL Tables to UTF-8
-
-`Convert existing database to UTF-8 <http://wiki.typo3.org/UTF-8_support#Convert_an_already_existing_database_to_UTF-8>`_
+Update MySQL Tables to UTF-8: `Convert existing database to UTF-8 <http://wiki.typo3.org/UTF-8_support#Convert_an_already_existing_database_to_UTF-8>`_
 
 Follow 'Possibility 1'
 
-    mysqldump -u hisparc -p --max_allowed_packet=10000000 hisparc_t3 > hisparc_t3_130319.sql
-    cd /usr/local/www/web/fileadmin
-    wget "http://dcbjht.home.xs4all.nl/typo3/db_utf8_fix.zip"
-    unzip db_utf8_fix.zip
-    vim  db_utf8_fix.php
-    http://www.hisparc.nl/fileadmin/db_utf8_fix.php
-    [if all OK -> change TRUE in line 9 to False]
-    http://www.hisparc.nl/fileadmin/db_utf8_fix.php
+.. code-block:: sh
 
-Ensure the following config is set:
+    $ mysqldump -u hisparc -p --max_allowed_packet=10000000 hisparc_t3 > hisparc_t3_130319.sql
+    $ cd /usr/local/www/web/fileadmin
+    $ wget "http://dcbjht.home.xs4all.nl/typo3/db_utf8_fix.zip"
+    $ unzip db_utf8_fix.zip
+    $ vim  db_utf8_fix.php
+
+Then go to http://www.hisparc.nl/fileadmin/db_utf8_fix.php , if all OK -> change TRUE in line 9 to False and reload the page.
+
+Ensure the following config is set::
 
     $TYPO3_CONF_VARS['SYS']['setDBinit'] = 'SET NAMES utf8;';
 
-The following was already active:
+The following was already active::
 
     $TYPO3_CONF_VARS['BE']['forceCharset'] = 'utf-8';
 
