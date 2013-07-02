@@ -210,9 +210,7 @@ PHP 5.3.19 <span class="o">(</span>cli<span class="o">)</span> <span class="o">(
 <span class="nv">$ </span>/sbin/service httpd reload
 </pre></div>
 </div>
-<p>Other possibility</p>
-<blockquote>
-<div><a class="reference external" href="http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/">http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/</a></div></blockquote>
+<p>Other possibility: <a class="reference external" href="http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/">Update CentOS 5 PHP 5.1 to PHP 5.3</a></p>
 </div>
 <div class="section" id="install-missing-php-module">
 <h3>Install missing PHP module<a class="headerlink" href="#install-missing-php-module" title="Permalink to this headline">¶</a></h3>
@@ -252,9 +250,9 @@ AddEncoding gzip .gzip
 <div class="section" id="deprecation-error-gpvar">
 <h3>Deprecation error GPvar<a class="headerlink" href="#deprecation-error-gpvar" title="Permalink to this headline">¶</a></h3>
 <p>Deprecation error in the logs:</p>
-<blockquote>
-<div>Using gpvar in TypoScript getText is deprecated since TYPO3 4.3 - Use gp instead of gpvar.</div></blockquote>
-<p>Look for <cite>gpvar</cite> in Backend; found one occurrence, replace <cite>GPvar</cite> by <cite>GP</cite> and reload httpd</p>
+<div class="highlight-python"><pre>Using gpvar in TypoScript getText is deprecated since TYPO3 4.3 - Use gp instead of gpvar.</pre>
+</div>
+<p>Look for <tt class="docutils literal"><span class="pre">gpvar</span></tt> in Backend; found one occurrence, replace <tt class="docutils literal"><span class="pre">GPvar</span></tt> by <tt class="docutils literal"><span class="pre">GP</span></tt> and reload httpd</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>/sbin/service httpd reload
 </pre></div>
 </div>
@@ -265,38 +263,38 @@ AddEncoding gzip .gzip
 <p><em>This is a Long Term Support version of TYPO3</em></p>
 <p>Follow the <a class="reference internal" href="#upgrading-typo3-version">Upgrading TYPO3 version</a> instructions above.</p>
 <p>Update tt_news to 3.1.0, run the included updater.</p>
-<p>Modify the file typo3conf/ext/tt_news/ext_tables.php</p>
-<blockquote>
-<div>-enableConfigValidation = 1
-+enableConfigValidation = 0</div></blockquote>
+<p>Modify the file <tt class="docutils literal"><span class="pre">typo3conf/ext/tt\_news/ext\_tables.php</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">-</span><span class="n">enableConfigValidation</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="o">+</span><span class="n">enableConfigValidation</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
 <div class="section" id="deprecation-error-use-utf-8">
 <h3>Deprecation error, use UTF-8<a class="headerlink" href="#deprecation-error-use-utf-8" title="Permalink to this headline">¶</a></h3>
 <p>This error appeared in the deprecation log located at
-<cite>/usr/local/www/web/typo3conf/deprecation_[..].log</cite></p>
-<blockquote>
-<div><p>This TYPO3 installation is using the $TYPO3_CONF_VARS[&#8216;SYS&#8217;][&#8216;setDBinit&#8217;] property with the following value:</p>
-<p>It looks like UTF-8 is not used for this connection.</p>
-<p>Everything other than UTF-8 is deprecated since TYPO3 4.5.
-The DB, its connection and TYPO3 should be migrated to UTF-8 therefore. Please check your setup.</p>
-</div></blockquote>
-<p>Update MySQL Tables to UTF-8</p>
-<p><a class="reference external" href="http://wiki.typo3.org/UTF-8_support#Convert_an_already_existing_database_to_UTF-8">Convert existing database to UTF-8</a></p>
+<tt class="docutils literal"><span class="pre">/usr/local/www/web/typo3conf/deprecation_[..].log</span></tt>:</p>
+<div class="highlight-python"><pre>This TYPO3 installation is using the $TYPO3_CONF_VARS['SYS']['setDBinit'] property with the following value:
+
+It looks like UTF-8 is not used for this connection.
+
+Everything other than UTF-8 is deprecated since TYPO3 4.5.
+The DB, its connection and TYPO3 should be migrated to UTF-8 therefore. Please check your setup.</pre>
+</div>
+<p>Update MySQL Tables to UTF-8: <a class="reference external" href="http://wiki.typo3.org/UTF-8_support#Convert_an_already_existing_database_to_UTF-8">Convert existing database to UTF-8</a></p>
 <p>Follow &#8216;Possibility 1&#8217;</p>
-<blockquote>
-<div>mysqldump -u hisparc -p &#8211;max_allowed_packet=10000000 hisparc_t3 &gt; hisparc_t3_130319.sql
-cd /usr/local/www/web/fileadmin
-wget &#8220;<a class="reference external" href="http://dcbjht.home.xs4all.nl/typo3/db_utf8_fix.zip">http://dcbjht.home.xs4all.nl/typo3/db_utf8_fix.zip</a>&#8221;
-unzip db_utf8_fix.zip
-vim  db_utf8_fix.php
-<a class="reference external" href="http://www.hisparc.nl/fileadmin/db_utf8_fix.php">http://www.hisparc.nl/fileadmin/db_utf8_fix.php</a>
-[if all OK -&gt; change TRUE in line 9 to False]
-<a class="reference external" href="http://www.hisparc.nl/fileadmin/db_utf8_fix.php">http://www.hisparc.nl/fileadmin/db_utf8_fix.php</a></div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mysqldump -u hisparc -p --max_allowed_packet<span class="o">=</span>10000000 hisparc_t3 &gt; hisparc_t3_130319.sql
+<span class="nv">$ </span><span class="nb">cd</span> /usr/local/www/web/fileadmin
+<span class="nv">$ </span>wget <span class="s2">&quot;http://dcbjht.home.xs4all.nl/typo3/db_utf8_fix.zip&quot;</span>
+<span class="nv">$ </span>unzip db_utf8_fix.zip
+<span class="nv">$ </span>vim  db_utf8_fix.php
+</pre></div>
+</div>
+<p>Then go to <a class="reference external" href="http://www.hisparc.nl/fileadmin/db_utf8_fix.php">http://www.hisparc.nl/fileadmin/db_utf8_fix.php</a> , if all OK -&gt; change TRUE in line 9 to False and reload the page.</p>
 <p>Ensure the following config is set:</p>
-<blockquote>
-<div>$TYPO3_CONF_VARS[&#8216;SYS&#8217;][&#8216;setDBinit&#8217;] = &#8216;SET NAMES utf8;&#8217;;</div></blockquote>
+<div class="highlight-python"><pre>$TYPO3_CONF_VARS['SYS']['setDBinit'] = 'SET NAMES utf8;';</pre>
+</div>
 <p>The following was already active:</p>
-<blockquote>
-<div>$TYPO3_CONF_VARS[&#8216;BE&#8217;][&#8216;forceCharset&#8217;] = &#8216;utf-8&#8217;;</div></blockquote>
+<div class="highlight-python"><pre>$TYPO3_CONF_VARS['BE']['forceCharset'] = 'utf-8';</pre>
+</div>
 <p>Special characters where not correctly migrated to new encoding.
 Install <cite>find_and_replace</cite> extension, using this these occurances were fixed.
 The find and replace extension does not fix all occurrences (tt_news).

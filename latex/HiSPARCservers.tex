@@ -1931,11 +1931,7 @@ PHP 5.3.19 \PYG{o}{(}cli\PYG{o}{)} \PYG{o}{(}built: Nov 25 2012 13:46:54\PYG{o}{
 \PYG{n+nv}{\PYGZdl{} }/sbin/service httpd reload
 \end{Verbatim}
 
-Other possibility
-\begin{quote}
-
-\href{http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/}{http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/}
-\end{quote}
+Other possibility: \href{http://www.andresmontalban.com/update-centos-5-php-5-1-to-php-5-3/}{Update CentOS 5 PHP 5.1 to PHP 5.3}
 
 
 \subsection{Install missing PHP module}
@@ -1981,12 +1977,12 @@ AddEncoding gzip .gzip
 \subsection{Deprecation error GPvar}
 \label{typo3:deprecation-error-gpvar}
 Deprecation error in the logs:
-\begin{quote}
 
+\begin{Verbatim}[commandchars=\\\{\}]
 Using gpvar in TypoScript getText is deprecated since TYPO3 4.3 - Use gp instead of gpvar.
-\end{quote}
+\end{Verbatim}
 
-Look for \emph{gpvar} in Backend; found one occurrence, replace \emph{GPvar} by \emph{GP} and reload httpd
+Look for \code{gpvar} in Backend; found one occurrence, replace \code{GPvar} by \code{GP} and reload httpd
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n+nv}{\PYGZdl{} }/sbin/service httpd reload
@@ -2001,56 +1997,53 @@ Follow the {\hyperref[typo3:upgrading-typo3-version]{Upgrading TYPO3 version}} i
 
 Update tt\_news to 3.1.0, run the included updater.
 
-Modify the file typo3conf/ext/tt\_news/ext\_tables.php
-\begin{quote}
+Modify the file \code{typo3conf/ext/tt\textbackslash{}\_news/ext\textbackslash{}\_tables.php}:
 
--enableConfigValidation = 1
-+enableConfigValidation = 0
-\end{quote}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\PYGZhy{}}\PYG{n}{enableConfigValidation} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{o}{+}\PYG{n}{enableConfigValidation} \PYG{o}{=} \PYG{l+m+mi}{0}
+\end{Verbatim}
 
 
 \subsection{Deprecation error, use UTF-8}
 \label{typo3:deprecation-error-use-utf-8}
 This error appeared in the deprecation log located at
-\emph{/usr/local/www/web/typo3conf/deprecation\_{[}..{]}.log}
-\begin{quote}
+\code{/usr/local/www/web/typo3conf/deprecation\_{[}..{]}.log}:
 
-This TYPO3 installation is using the \$TYPO3\_CONF\_VARS{[}'SYS'{]}{[}'setDBinit'{]} property with the following value:
+\begin{Verbatim}[commandchars=\\\{\}]
+This TYPO3 installation is using the \$TYPO3\_CONF\_VARS['SYS']['setDBinit'] property with the following value:
 
 It looks like UTF-8 is not used for this connection.
 
 Everything other than UTF-8 is deprecated since TYPO3 4.5.
 The DB, its connection and TYPO3 should be migrated to UTF-8 therefore. Please check your setup.
-\end{quote}
+\end{Verbatim}
 
-Update MySQL Tables to UTF-8
-
-\href{http://wiki.typo3.org/UTF-8\_support\#Convert\_an\_already\_existing\_database\_to\_UTF-8}{Convert existing database to UTF-8}
+Update MySQL Tables to UTF-8: \href{http://wiki.typo3.org/UTF-8\_support\#Convert\_an\_already\_existing\_database\_to\_UTF-8}{Convert existing database to UTF-8}
 
 Follow `Possibility 1'
-\begin{quote}
 
-mysqldump -u hisparc -p --max\_allowed\_packet=10000000 hisparc\_t3 \textgreater{} hisparc\_t3\_130319.sql
-cd /usr/local/www/web/fileadmin
-wget ``\href{http://dcbjht.home.xs4all.nl/typo3/db\_utf8\_fix.zip}{http://dcbjht.home.xs4all.nl/typo3/db\_utf8\_fix.zip}''
-unzip db\_utf8\_fix.zip
-vim  db\_utf8\_fix.php
-\href{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}
-{[}if all OK -\textgreater{} change TRUE in line 9 to False{]}
-\href{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}
-\end{quote}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }mysqldump \PYGZhy{}u hisparc \PYGZhy{}p \PYGZhy{}\PYGZhy{}max\PYGZus{}allowed\PYGZus{}packet\PYG{o}{=}10000000 hisparc\PYGZus{}t3 \PYGZgt{} hisparc\PYGZus{}t3\PYGZus{}130319.sql
+\PYG{n+nv}{\PYGZdl{} }\PYG{n+nb}{cd} /usr/local/www/web/fileadmin
+\PYG{n+nv}{\PYGZdl{} }wget \PYG{l+s+s2}{\PYGZdq{}http://dcbjht.home.xs4all.nl/typo3/db\PYGZus{}utf8\PYGZus{}fix.zip\PYGZdq{}}
+\PYG{n+nv}{\PYGZdl{} }unzip db\PYGZus{}utf8\PYGZus{}fix.zip
+\PYG{n+nv}{\PYGZdl{} }vim  db\PYGZus{}utf8\PYGZus{}fix.php
+\end{Verbatim}
+
+Then go to \href{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php} , if all OK -\textgreater{} change TRUE in line 9 to False and reload the page.
 
 Ensure the following config is set:
-\begin{quote}
 
-\$TYPO3\_CONF\_VARS{[}'SYS'{]}{[}'setDBinit'{]} = `SET NAMES utf8;';
-\end{quote}
+\begin{Verbatim}[commandchars=\\\{\}]
+\$TYPO3\_CONF\_VARS['SYS']['setDBinit'] = 'SET NAMES utf8;';
+\end{Verbatim}
 
 The following was already active:
-\begin{quote}
 
-\$TYPO3\_CONF\_VARS{[}'BE'{]}{[}'forceCharset'{]} = `utf-8';
-\end{quote}
+\begin{Verbatim}[commandchars=\\\{\}]
+\$TYPO3\_CONF\_VARS['BE']['forceCharset'] = 'utf-8';
+\end{Verbatim}
 
 Special characters where not correctly migrated to new encoding.
 Install \emph{find\_and\_replace} extension, using this these occurances were fixed.
