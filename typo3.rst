@@ -32,17 +32,6 @@ Check TYPO3 version at http://www.hisparc.nl/typo3/ -> 4.5
 Then check the requirements for the new TYPO3 version to see if an update of any package is required.
 
 
-Make MySQL backup
------------------
-
-This dumps the current hisparc\_t3 database in the hisparc\_t3\_latest.sql file
-
-.. code-block:: sh
-
-    $ mysqldump -u hisparc -p hisparc_t3 > hisparc_t3_latest.sql
-    [enter MySQL password]
-
-
 Source code location
 --------------------
 
@@ -59,10 +48,31 @@ Here we download the source code of the update. replace [version number] with th
 Upgrading TYPO3 version
 -----------------------
 
+
 Check requirements and deprecations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Check the `TYPO3 Upgrade <http://wiki.typo3.org/Upgrade>`_ page for any new requirements and deprecations.
+
+
+Make MySQL backup
+^^^^^^^^^^^^^^^^^
+
+Make a backup of the TYPO3 MySQL database. This dumps the current hisparc\_t3 database in the hisparc\_t3.sql file.
+
+.. code-block:: sh
+
+    $ mysqldump -u hisparc -p hisparc_t3 > hisparc_t3.sql
+    > [enter MySQL password]
+
+To restore the MySQL database from a backup in case of corruption or an error.
+
+.. note:: The .sql file contains ``DROP TABLE`` commands to overwrite the existing tables.
+
+.. code-block:: sh
+
+    $ mysql -u hisparc -p hisparc_t3 < hisparc_t3.sql
+    > [enter MySQL password]
 
 
 Use new source files
@@ -218,7 +228,7 @@ Deprecation error in the logs::
 
     Using gpvar in TypoScript getText is deprecated since TYPO3 4.3 - Use gp instead of gpvar.
 
-Look for ``gpvar`` in Backend; found one occurrence, replace ``GPvar`` by ``GP`` and reload httpd
+Look for ``gpvar`` in the Backend, replace ``GPvar`` by ``GP`` and reload httpd
 
 .. code-block:: sh
 
@@ -260,6 +270,7 @@ Follow 'Possibility 1'
 .. code-block:: sh
 
     $ mysqldump -u hisparc -p --max_allowed_packet=10000000 hisparc_t3 > hisparc_t3_130319.sql
+    > [enter password]
     $ cd /usr/local/www/web/fileadmin
     $ wget "http://dcbjht.home.xs4all.nl/typo3/db_utf8_fix.zip"
     $ unzip db_utf8_fix.zip
