@@ -14,7 +14,7 @@
 
 
 \title{HiSPARC Server Setup Documentation}
-\date{July 02, 2013}
+\date{July 05, 2013}
 \release{0.1}
 \author{HiSPARC team}
 \newcommand{\sphinxlogo}{\includegraphics{logo.pdf}\par}
@@ -125,7 +125,7 @@ Servers:
 
 
 \chapter{Installation of Frome}
-\label{frome:welcome-to-hisparc-server-management-s-documentation}\label{frome::doc}\label{frome:installation-of-frome}
+\label{frome::doc}\label{frome:installation-of-frome}\label{frome:hisparc-server-management-documentation}
 Granting davidf rights to manage software and services:
 
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -2007,7 +2007,9 @@ Start services
 
 \chapter{Upgrading of TYPO3}
 \label{typo3:upgrading-of-typo3}\label{typo3::doc}
-This describes how to update \href{http://www.typo3.org}{TYPO3}. General Upgrade instructions are available on \href{http://wiki.typo3.org/Upgrade}{TYPO3 Upgrade}. This guide is about applying these updates on neckar ({\hyperref[neckar::doc]{\emph{Installation of Neckar}}}).
+This describes how to update \href{http://www.typo3.org}{TYPO3}. General
+Upgrade instructions are available on \href{http://wiki.typo3.org/Upgrade}{TYPO3 Upgrade}. This guide is about applying these
+updates on neckar ({\hyperref[neckar::doc]{\emph{Installation of Neckar}}}).
 
 
 \section{Current versions}
@@ -2034,22 +2036,14 @@ php\PYGZhy{}pdo.x86\PYGZus{}64        5.3.19\PYGZhy{}1.w5
 
 Check TYPO3 version at \href{http://www.hisparc.nl/typo3/}{http://www.hisparc.nl/typo3/} -\textgreater{} 4.5
 
-Then check the requirements for the new TYPO3 version to see if an update of any package is required.
-
-
-\section{Make MySQL backup}
-\label{typo3:make-mysql-backup}
-This dumps the current hisparc\_t3 database in the hisparc\_t3\_latest.sql file
-
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nv}{\PYGZdl{} }mysqldump \PYGZhy{}u hisparc \PYGZhy{}p hisparc\PYGZus{}t3 \PYGZgt{} hisparc\PYGZus{}t3\PYGZus{}latest.sql
-\PYG{o}{[}enter MySQL password\PYG{o}{]}
-\end{Verbatim}
+Then check the requirements for the new TYPO3 version to see if an
+update of any package is required.
 
 
 \section{Source code location}
 \label{typo3:source-code-location}
-Here we download the source code of the update. replace {[}version number{]} with the version number.
+Here we download the source code of the update. replace {[}version number{]}
+with the version number.
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n+nv}{\PYGZdl{} }\PYG{n+nb}{cd} /usr/local/src
@@ -2064,12 +2058,36 @@ Here we download the source code of the update. replace {[}version number{]} wit
 
 \subsection{Check requirements and deprecations}
 \label{typo3:check-requirements-and-deprecations}
-Check the \href{http://wiki.typo3.org/Upgrade}{TYPO3 Upgrade} page for any new requirements and deprecations.
+Check the \href{http://wiki.typo3.org/Upgrade}{TYPO3 Upgrade} page for any
+new requirements and deprecations.
+
+
+\subsection{Make MySQL backup}
+\label{typo3:make-mysql-backup}
+Make a backup of the TYPO3 MySQL database. This dumps the current
+hisparc\_t3 database in the hisparc\_t3.sql file.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }mysqldump \PYGZhy{}u hisparc \PYGZhy{}p hisparc\PYGZus{}t3 \PYGZgt{} hisparc\PYGZus{}t3.sql
+\PYGZgt{} \PYG{o}{[}enter MySQL password\PYG{o}{]}
+\end{Verbatim}
+
+To restore the MySQL database from a backup in case of corruption or an error.
+
+\begin{notice}{note}{Note:}
+The .sql file contains \code{DROP TABLE} commands to overwrite the existing tables.
+\end{notice}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }mysql \PYGZhy{}u hisparc \PYGZhy{}p hisparc\PYGZus{}t3 \PYGZlt{} hisparc\PYGZus{}t3.sql
+\PYGZgt{} \PYG{o}{[}enter MySQL password\PYG{o}{]}
+\end{Verbatim}
 
 
 \subsection{Use new source files}
 \label{typo3:use-new-source-files}
-Link to new source files, correct permissions and enable TYPO3 install tool.
+Link to new source files, correct permissions and enable TYPO3 install
+tool.
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n+nv}{\PYGZdl{} }\PYG{n+nb}{cd} /usr/local/www/web
@@ -2086,9 +2104,9 @@ Enable the Install Tool
 \PYG{n+nv}{\PYGZdl{} }touch typo3conf/ENABLE\PYGZus{}INSTALL\PYGZus{}TOOL
 \end{Verbatim}
 
-Now run the Install Tool to migrate to the new version.
-The database needs to be updated, several times.
-Then the Wizard will easily guide you through the changes that need to be made.
+Now run the Install Tool to migrate to the new version. The database
+needs to be updated, several times. Then the Wizard will easily guide
+you through the changes that need to be made.
 \begin{enumerate}
 \item {} \begin{description}
 \item[{Enter the install tool.}] \leavevmode\begin{itemize}
@@ -2165,9 +2183,9 @@ Run ``Check reference index'', if there are changes to be made, click ``update r
 \subsection{Upgrade the extensions}
 \label{typo3:upgrade-the-extensions}
 Update TYPO3 Extensions in Ext Manager -\textgreater{} Check for extension updates;
-Be careful not to update extensions to the very latest version, check version compatibility.
-Remove any unused extensions.
-Use the ... to check the usage of the extensions
+Be careful not to update extensions to the very latest version, check
+version compatibility. Remove any unused extensions. Use the \code{Useful
+informations in the reports module} to check the usage of the extensions
 
 
 \section{Upgrade from 4.2.8 (to 4.3.14) to 4.4.15}
@@ -2180,8 +2198,9 @@ filter, \emph{GD2}, JSON, mysql, pcre, session, SPL, standard, xml
 
 \subsection{Upgrade PHP from 5.1.6 to 5.3.19}
 \label{typo3:upgrade-php-from-5-1-6-to-5-3-19}
-CentOS 5.x comes with PHP 5.1.x, but 5.3 is required, there is a php53 package,
-but a package named php can also be found, which is also more up to date.
+CentOS 5.x comes with PHP 5.1.x, but 5.3 is required, there is a php53
+package, but a package named php can also be found, which is also more
+up to date.
 
 \href{http://www.webtatic.com/packages/php53/}{http://www.webtatic.com/packages/php53/}
 
@@ -2266,7 +2285,8 @@ Deprecation error in the logs:
 Using gpvar in TypoScript getText is deprecated since TYPO3 4.3 - Use gp instead of gpvar.
 \end{Verbatim}
 
-Look for \code{gpvar} in Backend; found one occurrence, replace \code{GPvar} by \code{GP} and reload httpd
+Look for \code{gpvar} in the Backend, replace \code{GPvar} by \code{GP} and
+reload httpd
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n+nv}{\PYGZdl{} }/sbin/service httpd reload
@@ -2309,13 +2329,15 @@ Follow `Possibility 1'
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n+nv}{\PYGZdl{} }mysqldump \PYGZhy{}u hisparc \PYGZhy{}p \PYGZhy{}\PYGZhy{}max\PYGZus{}allowed\PYGZus{}packet\PYG{o}{=}10000000 hisparc\PYGZus{}t3 \PYGZgt{} hisparc\PYGZus{}t3\PYGZus{}130319.sql
+\PYGZgt{} \PYG{o}{[}enter password\PYG{o}{]}
 \PYG{n+nv}{\PYGZdl{} }\PYG{n+nb}{cd} /usr/local/www/web/fileadmin
 \PYG{n+nv}{\PYGZdl{} }wget \PYG{l+s+s2}{\PYGZdq{}http://dcbjht.home.xs4all.nl/typo3/db\PYGZus{}utf8\PYGZus{}fix.zip\PYGZdq{}}
 \PYG{n+nv}{\PYGZdl{} }unzip db\PYGZus{}utf8\PYGZus{}fix.zip
 \PYG{n+nv}{\PYGZdl{} }vim  db\PYGZus{}utf8\PYGZus{}fix.php
 \end{Verbatim}
 
-Then go to \href{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php} , if all OK -\textgreater{} change TRUE in line 9 to False and reload the page.
+Then go to \href{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php}{http://www.hisparc.nl/fileadmin/db\_utf8\_fix.php} , if all OK
+-\textgreater{} change TRUE in line 9 to False and reload the page.
 
 Ensure the following config is set:
 
@@ -2329,10 +2351,11 @@ The following was already active:
 \$TYPO3\_CONF\_VARS['BE']['forceCharset'] = 'utf-8';
 \end{Verbatim}
 
-Special characters where not correctly migrated to new encoding.
-Install \emph{find\_and\_replace} extension, using this these occurances were fixed.
+Special characters where not correctly migrated to new encoding. Install
+\emph{find\_and\_replace} extension, using this these occurances were fixed.
 The find and replace extension does not fix all occurrences (tt\_news).
-Also used this to remove unneeded excess from link tags (\emph{- external-link `opens in new ...'})
+Also used this to remove unneeded excess from link tags (\emph{-
+external-link `opens in new ...'})
 
 
 \section{Upgrade from 4.5.22 to 4.6.15}
@@ -2348,6 +2371,85 @@ Todo.
 \section{Upgrade from 4.7.7 to 6.0.0}
 \label{typo3:upgrade-from-4-7-7-to-6-0-0}
 Requires MySQL 5.1.x-5.5.x
+
+
+\section{Upgrade Apache to latest 2.2.x}
+\label{typo3:upgrade-apache-to-latest-2-2-x}
+The latest Apache is in the CentALT repository, so add that repo:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }\PYG{n+nb}{cd} /etc/yum.repos.d
+\PYG{n+nv}{\PYGZdl{} }vim centos.alt.ru.repo
+\PYG{o}{[}CentALT\PYG{o}{]}
+\PYG{n+nv}{name}\PYG{o}{=}CentALT Packages \PYG{k}{for }Enterprise Linux 5 \PYGZhy{} \PYG{n+nv}{\PYGZdl{}basearch}
+\PYG{n+nv}{baseurl}\PYG{o}{=}http://centos.alt.ru/repository/centos/5/\PYG{n+nv}{\PYGZdl{}basearch}/
+\PYG{n+nv}{enabled}\PYG{o}{=}1
+\PYG{n+nv}{gpgcheck}\PYG{o}{=}0
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }yum list httpd
+Installed Packages
+httpd.x86\PYGZus{}64                  2.2.3\PYGZhy{}81.el5.centos.3       installed
+Available Packages
+httpd.x86\PYGZus{}64                  2.2.24\PYGZhy{}1.el5                CentALT
+\end{Verbatim}
+
+Stop httpd service
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service httpd stop
+\end{Verbatim}
+
+Update Apache
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }yum update httpd
+Dependencies \PYG{n+nv}{Resolved}
+
+\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}
+ Package                 Arch    Version          Repository     \PYG{n+nv}{Size}
+\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}
+Updating:
+ httpd                   x86\PYGZus{}64  2.2.24\PYGZhy{}1.el5     CentALT       1.3 M
+Installing \PYG{k}{for }dependencies:
+ apr\PYGZhy{}util\PYGZhy{}ldap           x86\PYGZus{}64  1.4.1\PYGZhy{}1.el5      CentALT        14 k
+ httpd\PYGZhy{}tools             x86\PYGZus{}64  2.2.24\PYGZhy{}1.el5     CentALT        67 k
+Updating \PYG{k}{for }dependencies:
+ apr\PYGZhy{}util                x86\PYGZus{}64  1.4.1\PYGZhy{}1.el5      CentALT        80 k
+
+Transaction \PYG{n+nv}{Summary}
+\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}\PYG{o}{=}
+Install       2 Package\PYG{o}{(}s\PYG{o}{)}
+Upgrade       2 Package\PYG{o}{(}s\PYG{o}{)}
+
+\PYGZgt{} y
+
+warning: /etc/httpd/conf/httpd.conf created as /etc/httpd/conf/httpd.conf.rpmnew
+
+Dependency Installed:
+  apr\PYGZhy{}util\PYGZhy{}ldap.x86\PYGZus{}64 0:1.4.1\PYGZhy{}1.el5
+  httpd\PYGZhy{}tools.x86\PYGZus{}64 0:2.2.24\PYGZhy{}1.el5
+
+Updated:
+  httpd.x86\PYGZus{}64 0:2.2.24\PYGZhy{}1.el5
+
+Dependency Updated:
+  apr\PYGZhy{}util.x86\PYGZus{}64 0:1.4.1\PYGZhy{}1.el5
+\end{Verbatim}
+
+Todo: update httpd.conf with new options from httpd.conf.rpmnew
+
+\begin{notice}{warning}{Warning:}
+For some reason the user www is no longer recognized, use apache instead,
+Update \code{User} and \code{Group} in \code{/etc/httpd/conf/httpd.conf} to apache
+\end{notice}
+
+Start services
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{\PYGZdl{} }sudo /sbin/service httpd start
+\end{Verbatim}
 
 
 \chapter{Indices and tables}

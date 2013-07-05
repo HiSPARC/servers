@@ -55,21 +55,22 @@
 \contentsline {subsection}{\numberline {5.2.6}Upgrade Apache to latest 2.2.x}{34}{subsection.5.2.6}
 \contentsline {chapter}{\numberline {6}Upgrading of TYPO3}{37}{chapter.6}
 \contentsline {section}{\numberline {6.1}Current versions}{37}{section.6.1}
-\contentsline {section}{\numberline {6.2}Make MySQL backup}{37}{section.6.2}
-\contentsline {section}{\numberline {6.3}Source code location}{37}{section.6.3}
-\contentsline {section}{\numberline {6.4}Upgrading TYPO3 version}{38}{section.6.4}
-\contentsline {subsection}{\numberline {6.4.1}Check requirements and deprecations}{38}{subsection.6.4.1}
-\contentsline {subsection}{\numberline {6.4.2}Use new source files}{38}{subsection.6.4.2}
-\contentsline {subsection}{\numberline {6.4.3}Install the new version}{38}{subsection.6.4.3}
-\contentsline {subsection}{\numberline {6.4.4}Upgrade the extensions}{39}{subsection.6.4.4}
-\contentsline {section}{\numberline {6.5}Upgrade from 4.2.8 (to 4.3.14) to 4.4.15}{39}{section.6.5}
-\contentsline {subsection}{\numberline {6.5.1}Upgrade PHP from 5.1.6 to 5.3.19}{39}{subsection.6.5.1}
-\contentsline {subsection}{\numberline {6.5.2}Install missing PHP module}{40}{subsection.6.5.2}
-\contentsline {subsection}{\numberline {6.5.3}Add gzipping to .htaccess}{40}{subsection.6.5.3}
-\contentsline {subsection}{\numberline {6.5.4}Deprecation error GPvar}{40}{subsection.6.5.4}
-\contentsline {section}{\numberline {6.6}Upgrade from 4.4.15 to 4.5.22 LTS}{40}{section.6.6}
-\contentsline {subsection}{\numberline {6.6.1}Deprecation error, use UTF-8}{41}{subsection.6.6.1}
-\contentsline {section}{\numberline {6.7}Upgrade from 4.5.22 to 4.6.15}{41}{section.6.7}
-\contentsline {section}{\numberline {6.8}Upgrade from 4.6.15 to 4.7.7}{41}{section.6.8}
-\contentsline {section}{\numberline {6.9}Upgrade from 4.7.7 to 6.0.0}{41}{section.6.9}
-\contentsline {chapter}{\numberline {7}Indices and tables}{43}{chapter.7}
+\contentsline {section}{\numberline {6.2}Source code location}{37}{section.6.2}
+\contentsline {section}{\numberline {6.3}Upgrading TYPO3 version}{38}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Check requirements and deprecations}{38}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Make MySQL backup}{38}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}Use new source files}{38}{subsection.6.3.3}
+\contentsline {subsection}{\numberline {6.3.4}Install the new version}{38}{subsection.6.3.4}
+\contentsline {subsection}{\numberline {6.3.5}Upgrade the extensions}{39}{subsection.6.3.5}
+\contentsline {section}{\numberline {6.4}Upgrade from 4.2.8 (to 4.3.14) to 4.4.15}{39}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Upgrade PHP from 5.1.6 to 5.3.19}{39}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}Install missing PHP module}{40}{subsection.6.4.2}
+\contentsline {subsection}{\numberline {6.4.3}Add gzipping to .htaccess}{40}{subsection.6.4.3}
+\contentsline {subsection}{\numberline {6.4.4}Deprecation error GPvar}{40}{subsection.6.4.4}
+\contentsline {section}{\numberline {6.5}Upgrade from 4.4.15 to 4.5.22 LTS}{41}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}Deprecation error, use UTF-8}{41}{subsection.6.5.1}
+\contentsline {section}{\numberline {6.6}Upgrade from 4.5.22 to 4.6.15}{42}{section.6.6}
+\contentsline {section}{\numberline {6.7}Upgrade from 4.6.15 to 4.7.7}{42}{section.6.7}
+\contentsline {section}{\numberline {6.8}Upgrade from 4.7.7 to 6.0.0}{42}{section.6.8}
+\contentsline {section}{\numberline {6.9}Upgrade Apache to latest 2.2.x}{42}{section.6.9}
+\contentsline {chapter}{\numberline {7}Indices and tables}{45}{chapter.7}

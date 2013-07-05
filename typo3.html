@@ -46,7 +46,9 @@
             
   <div class="section" id="upgrading-of-typo3">
 <h1>Upgrading of TYPO3<a class="headerlink" href="#upgrading-of-typo3" title="Permalink to this headline">¶</a></h1>
-<p>This describes how to update <a class="reference external" href="http://www.typo3.org">TYPO3</a>. General Upgrade instructions are available on <a class="reference external" href="http://wiki.typo3.org/Upgrade">TYPO3 Upgrade</a>. This guide is about applying these updates on neckar (<a class="reference internal" href="neckar.html"><em>Installation of Neckar</em></a>).</p>
+<p>This describes how to update <a class="reference external" href="http://www.typo3.org">TYPO3</a>. General
+Upgrade instructions are available on <a class="reference external" href="http://wiki.typo3.org/Upgrade">TYPO3 Upgrade</a>. This guide is about applying these
+updates on neckar (<a class="reference internal" href="neckar.html"><em>Installation of Neckar</em></a>).</p>
 <div class="section" id="current-versions">
 <h2>Current versions<a class="headerlink" href="#current-versions" title="Permalink to this headline">¶</a></h2>
 <p>First check the versions of the OS, MySQL, Apache, PHP and TYPO3.</p>
@@ -68,19 +70,13 @@ php-pdo.x86_64        5.3.19-1.w5
 </pre></div>
 </div>
 <p>Check TYPO3 version at <a class="reference external" href="http://www.hisparc.nl/typo3/">http://www.hisparc.nl/typo3/</a> -&gt; 4.5</p>
-<p>Then check the requirements for the new TYPO3 version to see if an update of any package is required.</p>
-</div>
-<div class="section" id="make-mysql-backup">
-<h2>Make MySQL backup<a class="headerlink" href="#make-mysql-backup" title="Permalink to this headline">¶</a></h2>
-<p>This dumps the current hisparc_t3 database in the hisparc_t3_latest.sql file</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mysqldump -u hisparc -p hisparc_t3 &gt; hisparc_t3_latest.sql
-<span class="o">[</span>enter MySQL password<span class="o">]</span>
-</pre></div>
-</div>
+<p>Then check the requirements for the new TYPO3 version to see if an
+update of any package is required.</p>
 </div>
 <div class="section" id="source-code-location">
 <h2>Source code location<a class="headerlink" href="#source-code-location" title="Permalink to this headline">¶</a></h2>
-<p>Here we download the source code of the update. replace [version number] with the version number.</p>
+<p>Here we download the source code of the update. replace [version number]
+with the version number.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src
 <span class="nv">$ </span>wget http://garr.dl.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20<span class="o">[</span>version number<span class="o">]</span>/typo3_src-<span class="o">[</span>version number<span class="o">]</span>.tar.gz
 <span class="nv">$ </span>tar xfz typo3_src-<span class="o">[</span>version number<span class="o">]</span>.tar.gz
@@ -92,11 +88,31 @@ php-pdo.x86_64        5.3.19-1.w5
 <h2>Upgrading TYPO3 version<a class="headerlink" href="#upgrading-typo3-version" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="check-requirements-and-deprecations">
 <h3>Check requirements and deprecations<a class="headerlink" href="#check-requirements-and-deprecations" title="Permalink to this headline">¶</a></h3>
-<p>Check the <a class="reference external" href="http://wiki.typo3.org/Upgrade">TYPO3 Upgrade</a> page for any new requirements and deprecations.</p>
+<p>Check the <a class="reference external" href="http://wiki.typo3.org/Upgrade">TYPO3 Upgrade</a> page for any
+new requirements and deprecations.</p>
+</div>
+<div class="section" id="make-mysql-backup">
+<h3>Make MySQL backup<a class="headerlink" href="#make-mysql-backup" title="Permalink to this headline">¶</a></h3>
+<p>Make a backup of the TYPO3 MySQL database. This dumps the current
+hisparc_t3 database in the hisparc_t3.sql file.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mysqldump -u hisparc -p hisparc_t3 &gt; hisparc_t3.sql
+&gt; <span class="o">[</span>enter MySQL password<span class="o">]</span>
+</pre></div>
+</div>
+<p>To restore the MySQL database from a backup in case of corruption or an error.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The .sql file contains <tt class="docutils literal"><span class="pre">DROP</span> <span class="pre">TABLE</span></tt> commands to overwrite the existing tables.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mysql -u hisparc -p hisparc_t3 &lt; hisparc_t3.sql
+&gt; <span class="o">[</span>enter MySQL password<span class="o">]</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="use-new-source-files">
 <h3>Use new source files<a class="headerlink" href="#use-new-source-files" title="Permalink to this headline">¶</a></h3>
-<p>Link to new source files, correct permissions and enable TYPO3 install tool.</p>
+<p>Link to new source files, correct permissions and enable TYPO3 install
+tool.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/www/web
 <span class="nv">$ </span>ln -f -s /usr/local/src/typo3_src-<span class="o">[</span>version number<span class="o">]</span>/* .
 <span class="nv">$ </span>chown -h www.www *
@@ -109,9 +125,9 @@ php-pdo.x86_64        5.3.19-1.w5
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>touch typo3conf/ENABLE_INSTALL_TOOL
 </pre></div>
 </div>
-<p>Now run the Install Tool to migrate to the new version.
-The database needs to be updated, several times.
-Then the Wizard will easily guide you through the changes that need to be made.</p>
+<p>Now run the Install Tool to migrate to the new version. The database
+needs to be updated, several times. Then the Wizard will easily guide
+you through the changes that need to be made.</p>
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>Enter the install tool.</dt>
@@ -166,9 +182,9 @@ Then the Wizard will easily guide you through the changes that need to be made.<
 <div class="section" id="upgrade-the-extensions">
 <h3>Upgrade the extensions<a class="headerlink" href="#upgrade-the-extensions" title="Permalink to this headline">¶</a></h3>
 <p>Update TYPO3 Extensions in Ext Manager -&gt; Check for extension updates;
-Be careful not to update extensions to the very latest version, check version compatibility.
-Remove any unused extensions.
-Use the ... to check the usage of the extensions</p>
+Be careful not to update extensions to the very latest version, check
+version compatibility. Remove any unused extensions. Use the <tt class="docutils literal"><span class="pre">Useful</span>
+<span class="pre">informations</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">reports</span> <span class="pre">module</span></tt> to check the usage of the extensions</p>
 </div>
 </div>
 <div class="section" id="upgrade-from-4-2-8-to-4-3-14-to-4-4-15">
@@ -178,8 +194,9 @@ Use the ... to check the usage of the extensions</p>
 filter, <em>GD2</em>, JSON, mysql, pcre, session, SPL, standard, xml</p>
 <div class="section" id="upgrade-php-from-5-1-6-to-5-3-19">
 <h3>Upgrade PHP from 5.1.6 to 5.3.19<a class="headerlink" href="#upgrade-php-from-5-1-6-to-5-3-19" title="Permalink to this headline">¶</a></h3>
-<p>CentOS 5.x comes with PHP 5.1.x, but 5.3 is required, there is a php53 package,
-but a package named php can also be found, which is also more up to date.</p>
+<p>CentOS 5.x comes with PHP 5.1.x, but 5.3 is required, there is a php53
+package, but a package named php can also be found, which is also more
+up to date.</p>
 <p><a class="reference external" href="http://www.webtatic.com/packages/php53/">http://www.webtatic.com/packages/php53/</a></p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>rpm -Uvh http://repo.webtatic.com/yum/centos/5/latest.rpm
 <span class="nv">$ </span>yum --enablerepo<span class="o">=</span>webtatic update php
@@ -252,7 +269,8 @@ AddEncoding gzip .gzip
 <p>Deprecation error in the logs:</p>
 <div class="highlight-python"><pre>Using gpvar in TypoScript getText is deprecated since TYPO3 4.3 - Use gp instead of gpvar.</pre>
 </div>
-<p>Look for <tt class="docutils literal"><span class="pre">gpvar</span></tt> in Backend; found one occurrence, replace <tt class="docutils literal"><span class="pre">GPvar</span></tt> by <tt class="docutils literal"><span class="pre">GP</span></tt> and reload httpd</p>
+<p>Look for <tt class="docutils literal"><span class="pre">gpvar</span></tt> in the Backend, replace <tt class="docutils literal"><span class="pre">GPvar</span></tt> by <tt class="docutils literal"><span class="pre">GP</span></tt> and
+reload httpd</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>/sbin/service httpd reload
 </pre></div>
 </div>
@@ -282,23 +300,26 @@ The DB, its connection and TYPO3 should be migrated to UTF-8 therefore. Please c
 <p>Update MySQL Tables to UTF-8: <a class="reference external" href="http://wiki.typo3.org/UTF-8_support#Convert_an_already_existing_database_to_UTF-8">Convert existing database to UTF-8</a></p>
 <p>Follow &#8216;Possibility 1&#8217;</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mysqldump -u hisparc -p --max_allowed_packet<span class="o">=</span>10000000 hisparc_t3 &gt; hisparc_t3_130319.sql
+&gt; <span class="o">[</span>enter password<span class="o">]</span>
 <span class="nv">$ </span><span class="nb">cd</span> /usr/local/www/web/fileadmin
 <span class="nv">$ </span>wget <span class="s2">&quot;http://dcbjht.home.xs4all.nl/typo3/db_utf8_fix.zip&quot;</span>
 <span class="nv">$ </span>unzip db_utf8_fix.zip
 <span class="nv">$ </span>vim  db_utf8_fix.php
 </pre></div>
 </div>
-<p>Then go to <a class="reference external" href="http://www.hisparc.nl/fileadmin/db_utf8_fix.php">http://www.hisparc.nl/fileadmin/db_utf8_fix.php</a> , if all OK -&gt; change TRUE in line 9 to False and reload the page.</p>
+<p>Then go to <a class="reference external" href="http://www.hisparc.nl/fileadmin/db_utf8_fix.php">http://www.hisparc.nl/fileadmin/db_utf8_fix.php</a> , if all OK
+-&gt; change TRUE in line 9 to False and reload the page.</p>
 <p>Ensure the following config is set:</p>
 <div class="highlight-python"><pre>$TYPO3_CONF_VARS['SYS']['setDBinit'] = 'SET NAMES utf8;';</pre>
 </div>
 <p>The following was already active:</p>
 <div class="highlight-python"><pre>$TYPO3_CONF_VARS['BE']['forceCharset'] = 'utf-8';</pre>
 </div>
-<p>Special characters where not correctly migrated to new encoding.
-Install <cite>find_and_replace</cite> extension, using this these occurances were fixed.
+<p>Special characters where not correctly migrated to new encoding. Install
+<cite>find_and_replace</cite> extension, using this these occurances were fixed.
 The find and replace extension does not fix all occurrences (tt_news).
-Also used this to remove unneeded excess from link tags (<cite>- external-link &#8216;opens in new ...&#8217;</cite>)</p>
+Also used this to remove unneeded excess from link tags (<cite>-
+external-link &#8216;opens in new ...&#8217;</cite>)</p>
 </div>
 </div>
 <div class="section" id="upgrade-from-4-5-22-to-4-6-15">
@@ -312,6 +333,75 @@ Also used this to remove unneeded excess from link tags (<cite>- external-link &
 <div class="section" id="upgrade-from-4-7-7-to-6-0-0">
 <h2>Upgrade from 4.7.7 to 6.0.0<a class="headerlink" href="#upgrade-from-4-7-7-to-6-0-0" title="Permalink to this headline">¶</a></h2>
 <p>Requires MySQL 5.1.x-5.5.x</p>
+</div>
+<div class="section" id="upgrade-apache-to-latest-2-2-x">
+<h2>Upgrade Apache to latest 2.2.x<a class="headerlink" href="#upgrade-apache-to-latest-2-2-x" title="Permalink to this headline">¶</a></h2>
+<p>The latest Apache is in the CentALT repository, so add that repo:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /etc/yum.repos.d
+<span class="nv">$ </span>vim centos.alt.ru.repo
+<span class="o">[</span>CentALT<span class="o">]</span>
+<span class="nv">name</span><span class="o">=</span>CentALT Packages <span class="k">for </span>Enterprise Linux 5 - <span class="nv">$basearch</span>
+<span class="nv">baseurl</span><span class="o">=</span>http://centos.alt.ru/repository/centos/5/<span class="nv">$basearch</span>/
+<span class="nv">enabled</span><span class="o">=</span>1
+<span class="nv">gpgcheck</span><span class="o">=</span>0
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>yum list httpd
+Installed Packages
+httpd.x86_64                  2.2.3-81.el5.centos.3       installed
+Available Packages
+httpd.x86_64                  2.2.24-1.el5                CentALT
+</pre></div>
+</div>
+<p>Stop httpd service</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo /sbin/service httpd stop
+</pre></div>
+</div>
+<p>Update Apache</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>yum update httpd
+Dependencies <span class="nv">Resolved</span>
+
+<span class="o">======================================================================</span>
+ Package                 Arch    Version          Repository     <span class="nv">Size</span>
+<span class="o">======================================================================</span>
+Updating:
+ httpd                   x86_64  2.2.24-1.el5     CentALT       1.3 M
+Installing <span class="k">for </span>dependencies:
+ apr-util-ldap           x86_64  1.4.1-1.el5      CentALT        14 k
+ httpd-tools             x86_64  2.2.24-1.el5     CentALT        67 k
+Updating <span class="k">for </span>dependencies:
+ apr-util                x86_64  1.4.1-1.el5      CentALT        80 k
+
+Transaction <span class="nv">Summary</span>
+<span class="o">======================================================================</span>
+Install       2 Package<span class="o">(</span>s<span class="o">)</span>
+Upgrade       2 Package<span class="o">(</span>s<span class="o">)</span>
+
+&gt; y
+
+warning: /etc/httpd/conf/httpd.conf created as /etc/httpd/conf/httpd.conf.rpmnew
+
+Dependency Installed:
+  apr-util-ldap.x86_64 0:1.4.1-1.el5
+  httpd-tools.x86_64 0:2.2.24-1.el5
+
+Updated:
+  httpd.x86_64 0:2.2.24-1.el5
+
+Dependency Updated:
+  apr-util.x86_64 0:1.4.1-1.el5
+</pre></div>
+</div>
+<p>Todo: update httpd.conf with new options from httpd.conf.rpmnew</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">For some reason the user www is no longer recognized, use apache instead,
+Update <tt class="docutils literal"><span class="pre">User</span></tt> and <tt class="docutils literal"><span class="pre">Group</span></tt> in <tt class="docutils literal"><span class="pre">/etc/httpd/conf/httpd.conf</span></tt> to apache</p>
+</div>
+<p>Start services</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo /sbin/service httpd start
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -328,10 +418,10 @@ Also used this to remove unneeded excess from link tags (<cite>- external-link &
   <ul>
 <li><a class="reference internal" href="#">Upgrading of TYPO3</a><ul>
 <li><a class="reference internal" href="#current-versions">Current versions</a></li>
-<li><a class="reference internal" href="#make-mysql-backup">Make MySQL backup</a></li>
 <li><a class="reference internal" href="#source-code-location">Source code location</a></li>
 <li><a class="reference internal" href="#upgrading-typo3-version">Upgrading TYPO3 version</a><ul>
 <li><a class="reference internal" href="#check-requirements-and-deprecations">Check requirements and deprecations</a></li>
+<li><a class="reference internal" href="#make-mysql-backup">Make MySQL backup</a></li>
 <li><a class="reference internal" href="#use-new-source-files">Use new source files</a></li>
 <li><a class="reference internal" href="#install-the-new-version">Install the new version</a></li>
 <li><a class="reference internal" href="#upgrade-the-extensions">Upgrade the extensions</a></li>
@@ -351,6 +441,7 @@ Also used this to remove unneeded excess from link tags (<cite>- external-link &
 <li><a class="reference internal" href="#upgrade-from-4-5-22-to-4-6-15">Upgrade from 4.5.22 to 4.6.15</a></li>
 <li><a class="reference internal" href="#upgrade-from-4-6-15-to-4-7-7">Upgrade from 4.6.15 to 4.7.7</a></li>
 <li><a class="reference internal" href="#upgrade-from-4-7-7-to-6-0-0">Upgrade from 4.7.7 to 6.0.0</a></li>
+<li><a class="reference internal" href="#upgrade-apache-to-latest-2-2-x">Upgrade Apache to latest 2.2.x</a></li>
 </ul>
 </li>
 </ul>
