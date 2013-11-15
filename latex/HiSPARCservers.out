@@ -5,47 +5,48 @@
 \BOOKMARK [1][-]{section.1.4}{Web server}{chapter.1}% 5
 \BOOKMARK [1][-]{section.1.5}{Version control}{chapter.1}% 6
 \BOOKMARK [1][-]{section.1.6}{Datastore web application}{chapter.1}% 7
-\BOOKMARK [1][-]{section.1.7}{TODO}{chapter.1}% 8
-\BOOKMARK [1][-]{section.1.8}{\(Maybe\) Not relevant}{chapter.1}% 9
-\BOOKMARK [0][-]{chapter.2}{Installation of Pique}{}% 10
-\BOOKMARK [1][-]{section.2.1}{Python}{chapter.2}% 11
-\BOOKMARK [1][-]{section.2.2}{Python Setuptools}{chapter.2}% 12
-\BOOKMARK [1][-]{section.2.3}{IPython, an interactive Python shell}{chapter.2}% 13
-\BOOKMARK [1][-]{section.2.4}{Web server}{chapter.2}% 14
-\BOOKMARK [1][-]{section.2.5}{Version control}{chapter.2}% 15
-\BOOKMARK [1][-]{section.2.6}{Public database web application}{chapter.2}% 16
-\BOOKMARK [1][-]{section.2.7}{TODO}{chapter.2}% 17
-\BOOKMARK [0][-]{chapter.3}{Installation of Tietar}{}% 18
-\BOOKMARK [1][-]{section.3.1}{Installation}{chapter.3}% 19
-\BOOKMARK [1][-]{section.3.2}{Adding the hisparc group}{chapter.3}% 20
-\BOOKMARK [1][-]{section.3.3}{Preparing for source install}{chapter.3}% 21
-\BOOKMARK [1][-]{section.3.4}{Setting up RPMForge}{chapter.3}% 22
-\BOOKMARK [1][-]{section.3.5}{Python}{chapter.3}% 23
-\BOOKMARK [1][-]{section.3.6}{Python Setuptools}{chapter.3}% 24
-\BOOKMARK [1][-]{section.3.7}{Web server}{chapter.3}% 25
-\BOOKMARK [1][-]{section.3.8}{OpenVPN}{chapter.3}% 26
-\BOOKMARK [1][-]{section.3.9}{Dnsmasq}{chapter.3}% 27
-\BOOKMARK [1][-]{section.3.10}{Nagios}{chapter.3}% 28
-\BOOKMARK [1][-]{section.3.11}{Version control}{chapter.3}% 29
-\BOOKMARK [1][-]{section.3.12}{Setting up the HiSPARC public database scripts}{chapter.3}% 30
-\BOOKMARK [1][-]{section.3.13}{Shoreline Firewall \(Shorewall\)}{chapter.3}% 31
-\BOOKMARK [1][-]{section.3.14}{\(Maybe\) not relevant}{chapter.3}% 32
-\BOOKMARK [0][-]{chapter.4}{Installation of Neckar}{}% 33
-\BOOKMARK [1][-]{section.4.1}{Web server}{chapter.4}% 34
-\BOOKMARK [1][-]{section.4.2}{MySQL Server}{chapter.4}% 35
-\BOOKMARK [1][-]{section.4.3}{HiSPARC website}{chapter.4}% 36
-\BOOKMARK [1][-]{section.4.4}{Website}{chapter.4}% 37
-\BOOKMARK [0][-]{chapter.5}{Upgrading of Nagios}{}% 38
-\BOOKMARK [1][-]{section.5.1}{Current versions}{chapter.5}% 39
-\BOOKMARK [1][-]{section.5.2}{Upgrade from 3.2.3 to 3.5.0}{chapter.5}% 40
-\BOOKMARK [0][-]{chapter.6}{Upgrading of TYPO3}{}% 41
-\BOOKMARK [1][-]{section.6.1}{Current versions}{chapter.6}% 42
-\BOOKMARK [1][-]{section.6.2}{Source code location}{chapter.6}% 43
-\BOOKMARK [1][-]{section.6.3}{Upgrading TYPO3 version}{chapter.6}% 44
-\BOOKMARK [1][-]{section.6.4}{Upgrade from 4.2.8 \(to 4.3.14\) to 4.4.15}{chapter.6}% 45
-\BOOKMARK [1][-]{section.6.5}{Upgrade from 4.4.15 to 4.5.22 LTS}{chapter.6}% 46
-\BOOKMARK [1][-]{section.6.6}{Upgrade from 4.5.22 to 4.6.15}{chapter.6}% 47
-\BOOKMARK [1][-]{section.6.7}{Upgrade from 4.6.15 to 4.7.7}{chapter.6}% 48
-\BOOKMARK [1][-]{section.6.8}{Upgrade from 4.7.7 to 6.0.0}{chapter.6}% 49
-\BOOKMARK [1][-]{section.6.9}{Upgrade Apache to latest 2.2.x}{chapter.6}% 50
-\BOOKMARK [0][-]{chapter.7}{Indices and tables}{}% 51
+\BOOKMARK [1][-]{section.1.7}{Writer}{chapter.1}% 8
+\BOOKMARK [1][-]{section.1.8}{TODO}{chapter.1}% 9
+\BOOKMARK [1][-]{section.1.9}{\(Maybe\) Not relevant}{chapter.1}% 10
+\BOOKMARK [0][-]{chapter.2}{Installation of Pique}{}% 11
+\BOOKMARK [1][-]{section.2.1}{Python}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.2}{Python Setuptools}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.3}{IPython, an interactive Python shell}{chapter.2}% 14
+\BOOKMARK [1][-]{section.2.4}{Web server}{chapter.2}% 15
+\BOOKMARK [1][-]{section.2.5}{Version control}{chapter.2}% 16
+\BOOKMARK [1][-]{section.2.6}{Public database web application}{chapter.2}% 17
+\BOOKMARK [1][-]{section.2.7}{TODO}{chapter.2}% 18
+\BOOKMARK [0][-]{chapter.3}{Installation of Tietar}{}% 19
+\BOOKMARK [1][-]{section.3.1}{Installation}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.2}{Adding the hisparc group}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.3}{Preparing for source install}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.4}{Setting up RPMForge}{chapter.3}% 23
+\BOOKMARK [1][-]{section.3.5}{Python}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.6}{Python Setuptools}{chapter.3}% 25
+\BOOKMARK [1][-]{section.3.7}{Web server}{chapter.3}% 26
+\BOOKMARK [1][-]{section.3.8}{OpenVPN}{chapter.3}% 27
+\BOOKMARK [1][-]{section.3.9}{Dnsmasq}{chapter.3}% 28
+\BOOKMARK [1][-]{section.3.10}{Nagios}{chapter.3}% 29
+\BOOKMARK [1][-]{section.3.11}{Version control}{chapter.3}% 30
+\BOOKMARK [1][-]{section.3.12}{Setting up the HiSPARC public database scripts}{chapter.3}% 31
+\BOOKMARK [1][-]{section.3.13}{Shoreline Firewall \(Shorewall\)}{chapter.3}% 32
+\BOOKMARK [1][-]{section.3.14}{\(Maybe\) not relevant}{chapter.3}% 33
+\BOOKMARK [0][-]{chapter.4}{Installation of Neckar}{}% 34
+\BOOKMARK [1][-]{section.4.1}{Web server}{chapter.4}% 35
+\BOOKMARK [1][-]{section.4.2}{MySQL Server}{chapter.4}% 36
+\BOOKMARK [1][-]{section.4.3}{HiSPARC website}{chapter.4}% 37
+\BOOKMARK [1][-]{section.4.4}{Website}{chapter.4}% 38
+\BOOKMARK [0][-]{chapter.5}{Upgrading of Nagios}{}% 39
+\BOOKMARK [1][-]{section.5.1}{Current versions}{chapter.5}% 40
+\BOOKMARK [1][-]{section.5.2}{Upgrade from 3.2.3 to 3.5.0}{chapter.5}% 41
+\BOOKMARK [0][-]{chapter.6}{Upgrading of TYPO3}{}% 42
+\BOOKMARK [1][-]{section.6.1}{Current versions}{chapter.6}% 43
+\BOOKMARK [1][-]{section.6.2}{Source code location}{chapter.6}% 44
+\BOOKMARK [1][-]{section.6.3}{Upgrading TYPO3 version}{chapter.6}% 45
+\BOOKMARK [1][-]{section.6.4}{Upgrade from 4.2.8 \(to 4.3.14\) to 4.4.15}{chapter.6}% 46
+\BOOKMARK [1][-]{section.6.5}{Upgrade from 4.4.15 to 4.5.22 LTS}{chapter.6}% 47
+\BOOKMARK [1][-]{section.6.6}{Upgrade from 4.5.22 to 4.6.15}{chapter.6}% 48
+\BOOKMARK [1][-]{section.6.7}{Upgrade from 4.6.15 to 4.7.7}{chapter.6}% 49
+\BOOKMARK [1][-]{section.6.8}{Upgrade from 4.7.7 to 6.0.0}{chapter.6}% 50
+\BOOKMARK [1][-]{section.6.9}{Upgrade Apache to latest 2.2.x}{chapter.6}% 51
+\BOOKMARK [0][-]{chapter.7}{Indices and tables}{}% 52

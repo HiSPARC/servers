@@ -398,12 +398,13 @@ nameserver 127.0.0.1</pre>
 </div>
 <div class="section" id="version-control">
 <h2>Version control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h2>
-<p>Install bazaar from source:</p>
+<p>Install git from source:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/hisparc
-<span class="nv">$ </span>wget http://launchpad.net/bzr/2.1/2.1.0/+download/bzr-2.1.0.tar.gz
-<span class="nv">$ </span>tar xvzf bzr-2.1.0.tar.gz
-<span class="nv">$ </span><span class="nb">cd </span>bzr-2.1.0
-<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>python setup.py install
+<span class="nv">$ </span>wget https://git-core.googlecode.com/files/git-1.8.4.3.tar.gz
+<span class="nv">$ </span>tar xvzf git-1.8.4.3.tar.gz
+<span class="nv">$ </span><span class="nb">cd </span>git-1.8.4.3.tar.gz
+    <span class="nv">$ </span>make <span class="nv">prefix</span><span class="o">=</span>/usr/local all
+    <span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>sudo make <span class="nv">prefix</span><span class="o">=</span>/usr/local install
 </pre></div>
 </div>
 <div class="section" id="paramiko">
@@ -421,7 +422,7 @@ application&#8217;s sources over sftp.  Install using easy_install:</p>
 <h2>Setting up the HiSPARC public database scripts<a class="headerlink" href="#setting-up-the-hisparc-public-database-scripts" title="Permalink to this headline">¶</a></h2>
 <p>First, do a checkout of the public database sources:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/hisparc
-<span class="nv">$ </span>bzr co sftp://admhispa@login.nikhef.nl/project/hisparc/bzr/publicdb/trunk publicdb
+<span class="nv">$ </span>git clone https://github.com/HiSPARC/publicdb.git publicdb
 </pre></div>
 </div>
 <p>Symlink the vpn server example scripts into /usr/local/bin:</p>

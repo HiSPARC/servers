@@ -158,36 +158,24 @@ Restarting apache:
 Version control
 ---------------
 
-Install bazaar from source:
+Install git from source:
 
 .. code-block:: sh
 
     $ cd /usr/local/src/hisparc
-    $ wget http://launchpad.net/bzr/2.0/2.0.2/+download/bzr-2.0.2.tar.gz
-    $ tar xvzf bzr-2.0.2.tar.gz
-    $ cd bzr-2.0.2
-    (root)$ python setup.py install
-
-
-Paramiko
-^^^^^^^^
-
-Paramiko supports ssh2 for python, which is needed to do a checkout of our
-application's sources over sftp.  Install using easy_install:
-
-.. code-block:: sh
-
-    (root)$ easy_install paramiko
-
-This will automatically download, compile and install dependencies
-(pycrypto).
+    $ wget https://git-core.googlecode.com/files/git-1.8.4.3.tar.gz
+    $ tar xvzf git-1.8.4.3.tar.gz
+    $ cd git-1.8.4.3.tar.gz
+	$ make prefix=/usr/local all
+	(root)$ sudo make prefix=/usr/local install
 
 
 Datastore web application
 -------------------------
 
 The datastore application is driving our central data storage solution.
-It is a pure python implementation under complete version control.
+It is a pure Python implementation under complete version control.
+
 
 Prerequisites
 ^^^^^^^^^^^^^
@@ -199,29 +187,7 @@ store binary data files.  PyTables depends heavily on NumPy.:
 
     (root)$ easy_install numpy
 
-This gives an error::
-
-    /tmp/easy_install-JePGOA/numpy-1.4.0rc1/numpy/distutils/misc_util.py:248: RuntimeWarning: Parent module 'numpy.distutils' not found while handling absolute import
-    Error in atexit._run_exitfuncs:
-    Traceback (most recent call last):
-      File "/usr/local/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
-        func(*targs, **kargs)
-      File "/tmp/easy_install-JePGOA/numpy-1.4.0rc1/numpy/distutils/misc_util.py", line 248, in clean_up_temporary_directory
-    ImportError: No module named numpy.distutils
-    Error in sys.exitfunc:
-    Traceback (most recent call last):
-      File "/usr/local/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
-        func(*targs, **kargs)
-      File "/tmp/easy_install-JePGOA/numpy-1.4.0rc1/numpy/distutils/misc_util.py", line 248, in clean_up_temporary_directory
-    ImportError: No module named numpy.distutils
-
-So, rerun the command, this time without errors:
-
-.. code-block:: sh
-
-    (root)$ easy_install numpy
-
-Now:
+Now install the HDF5 library:
 
 .. code-block:: sh
 
@@ -264,8 +230,7 @@ Here we go:
     (root)$ mkdir datastore
     (root)$ chown davidf.hisparc datastore
     (root)$ chmod g+w datastore
-    $ cd /var/www/wsgi-bin/datastore/
-    $ bzr co sftp://admhispa@login.nikhef.nl/project/hisparc/bzr/datastore/trunk .
+    $ git clone https://github.com/HiSPARC/datastore.git /var/www/wsgi-bin/datastore
 
 Copy the application.wsgi and config.ini from the examples directory:
 
@@ -322,16 +287,54 @@ Reload Apache configuration:
     $ sudo /sbin/service httpd reload
 
 
+Writer
+------
+
+Write a wrapper for the writer:
+
+.. code-block:: sh
+
+    $ vim /var/www/wsgi-bin/datastore/writer_app.py
+
+.. code-block:: python
+
+    """Wrapper for the writer application"""
+
+    import sys
+
+    sys.path.append('/var/www/wsgi-bin/datastore/writer')
+
+    import writer
+
+    configfile = ('/var/www/wsgi-bin/datastore/config.ini')
+    writer.writer(configfile)
+
+Start the writer app
+
+.. code-block:: sh
+
+    (root)$ screen
+    (root)$ sudo -u www python /var/www/wsgi-bin/datastore/writer_app.py
+
+This process will process incoming data and write them into the datastore
+
+
 TODO
 ----
 
-Writer app!
+Run the script to receive configuration updates from the Public Database
+Based on the file: `publicdb/scripts/fake-datastore-xmlrpc-server.py`
+
+.. code-block:: sh
+
+    $ runuser -l hisparc -c 'hisparc-datastore'
 
 
 (Maybe) Not relevant
 --------------------
 
 install: yum-utils
+easy_install paramiko
 easy_install dozer
 easy_install pil (requirement of dozer)
 easy_install mysql-python (for migration)

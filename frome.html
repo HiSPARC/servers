@@ -174,29 +174,20 @@ Installing <span class="k">for </span>dependencies:
 </div>
 <div class="section" id="version-control">
 <h2>Version control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h2>
-<p>Install bazaar from source:</p>
+<p>Install git from source:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/hisparc
-<span class="nv">$ </span>wget http://launchpad.net/bzr/2.0/2.0.2/+download/bzr-2.0.2.tar.gz
-<span class="nv">$ </span>tar xvzf bzr-2.0.2.tar.gz
-<span class="nv">$ </span><span class="nb">cd </span>bzr-2.0.2
-<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>python setup.py install
+<span class="nv">$ </span>wget https://git-core.googlecode.com/files/git-1.8.4.3.tar.gz
+<span class="nv">$ </span>tar xvzf git-1.8.4.3.tar.gz
+<span class="nv">$ </span><span class="nb">cd </span>git-1.8.4.3.tar.gz
+    <span class="nv">$ </span>make <span class="nv">prefix</span><span class="o">=</span>/usr/local all
+    <span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>sudo make <span class="nv">prefix</span><span class="o">=</span>/usr/local install
 </pre></div>
-</div>
-<div class="section" id="paramiko">
-<h3>Paramiko<a class="headerlink" href="#paramiko" title="Permalink to this headline">¶</a></h3>
-<p>Paramiko supports ssh2 for python, which is needed to do a checkout of our
-application&#8217;s sources over sftp.  Install using easy_install:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>easy_install paramiko
-</pre></div>
-</div>
-<p>This will automatically download, compile and install dependencies
-(pycrypto).</p>
 </div>
 </div>
 <div class="section" id="datastore-web-application">
 <h2>Datastore web application<a class="headerlink" href="#datastore-web-application" title="Permalink to this headline">¶</a></h2>
 <p>The datastore application is driving our central data storage solution.
-It is a pure python implementation under complete version control.</p>
+It is a pure Python implementation under complete version control.</p>
 <div class="section" id="prerequisites">
 <h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
 <p>The datastore application uses PyTables and the underlying HDF5 library to
@@ -204,26 +195,7 @@ store binary data files.  PyTables depends heavily on NumPy.:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>easy_install numpy
 </pre></div>
 </div>
-<p>This gives an error:</p>
-<div class="highlight-python"><pre>/tmp/easy_install-JePGOA/numpy-1.4.0rc1/numpy/distutils/misc_util.py:248: RuntimeWarning: Parent module 'numpy.distutils' not found while handling absolute import
-Error in atexit._run_exitfuncs:
-Traceback (most recent call last):
-  File "/usr/local/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
-    func(*targs, **kargs)
-  File "/tmp/easy_install-JePGOA/numpy-1.4.0rc1/numpy/distutils/misc_util.py", line 248, in clean_up_temporary_directory
-ImportError: No module named numpy.distutils
-Error in sys.exitfunc:
-Traceback (most recent call last):
-  File "/usr/local/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
-    func(*targs, **kargs)
-  File "/tmp/easy_install-JePGOA/numpy-1.4.0rc1/numpy/distutils/misc_util.py", line 248, in clean_up_temporary_directory
-ImportError: No module named numpy.distutils</pre>
-</div>
-<p>So, rerun the command, this time without errors:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>easy_install numpy
-</pre></div>
-</div>
-<p>Now:</p>
+<p>Now install the HDF5 library:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/hisparc
 <span class="nv">$ </span>wget http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-1.8.3/src/hdf5-1.8.3.tar.gz
 <span class="nv">$ </span>tar xvzf hdf5-1.8.3.tar.gz
@@ -260,8 +232,7 @@ edited to set the correct local full path</li>
 <span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>mkdir datastore
 <span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chown davidf.hisparc datastore
 <span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>chmod g+w datastore
-<span class="nv">$ </span><span class="nb">cd</span> /var/www/wsgi-bin/datastore/
-<span class="nv">$ </span>bzr co sftp://admhispa@login.nikhef.nl/project/hisparc/bzr/datastore/trunk .
+<span class="nv">$ </span>git clone https://github.com/HiSPARC/datastore.git /var/www/wsgi-bin/datastore
 </pre></div>
 </div>
 <p>Copy the application.wsgi and config.ini from the examples directory:</p>
@@ -311,13 +282,43 @@ sleep=1</pre>
 </div>
 </div>
 </div>
+<div class="section" id="writer">
+<h2>Writer<a class="headerlink" href="#writer" title="Permalink to this headline">¶</a></h2>
+<p>Write a wrapper for the writer:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>vim /var/www/wsgi-bin/datastore/writer_app.py
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="sd">&quot;&quot;&quot;Wrapper for the writer application&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;/var/www/wsgi-bin/datastore/writer&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">writer</span>
+
+<span class="n">configfile</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;/var/www/wsgi-bin/datastore/config.ini&#39;</span><span class="p">)</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">configfile</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Start the writer app</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>screen
+<span class="o">(</span>root<span class="o">)</span><span class="nv">$ </span>sudo -u www python /var/www/wsgi-bin/datastore/writer_app.py
+</pre></div>
+</div>
+<p>This process will process incoming data and write them into the datastore</p>
+</div>
 <div class="section" id="todo">
 <h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
-<p>Writer app!</p>
+<p>Run the script to receive configuration updates from the Public Database
+Based on the file: <cite>publicdb/scripts/fake-datastore-xmlrpc-server.py</cite></p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>runuser -l hisparc -c <span class="s1">&#39;hisparc-datastore&#39;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="maybe-not-relevant">
 <h2>(Maybe) Not relevant<a class="headerlink" href="#maybe-not-relevant" title="Permalink to this headline">¶</a></h2>
 <p>install: yum-utils
+easy_install paramiko
 easy_install dozer
 easy_install pil (requirement of dozer)
 easy_install mysql-python (for migration)
@@ -343,15 +344,13 @@ install: blas-devel lapack-devel (for scipy)</p>
 <li><a class="reference internal" href="#python-setuptools">Python Setuptools</a></li>
 <li><a class="reference internal" href="#ipython-an-interactive-python-shell">IPython, an interactive Python shell</a></li>
 <li><a class="reference internal" href="#web-server">Web server</a></li>
-<li><a class="reference internal" href="#version-control">Version control</a><ul>
-<li><a class="reference internal" href="#paramiko">Paramiko</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#version-control">Version control</a></li>
 <li><a class="reference internal" href="#datastore-web-application">Datastore web application</a><ul>
 <li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li><a class="reference internal" href="#setting-up-datastore">Setting up datastore</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#writer">Writer</a></li>
 <li><a class="reference internal" href="#todo">TODO</a></li>
 <li><a class="reference internal" href="#maybe-not-relevant">(Maybe) Not relevant</a></li>
 </ul>
