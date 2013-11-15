@@ -403,15 +403,16 @@ Reload apache configuration and start nagios:
 Version control
 ---------------
 
-Install bazaar from source:
+Install git from source:
 
 .. code-block:: sh
 
     $ cd /usr/local/src/hisparc
-    $ wget http://launchpad.net/bzr/2.1/2.1.0/+download/bzr-2.1.0.tar.gz
-    $ tar xvzf bzr-2.1.0.tar.gz 
-    $ cd bzr-2.1.0
-    (root)$ python setup.py install
+    $ wget https://git-core.googlecode.com/files/git-1.8.4.3.tar.gz
+    $ tar xvzf git-1.8.4.3.tar.gz
+    $ cd git-1.8.4.3.tar.gz
+	$ make prefix=/usr/local all
+	(root)$ sudo make prefix=/usr/local install
 
 
 Paramiko
@@ -436,7 +437,7 @@ First, do a checkout of the public database sources:
 .. code-block:: sh
 
     $ cd /usr/local/src/hisparc
-    $ bzr co sftp://admhispa@login.nikhef.nl/project/hisparc/bzr/publicdb/trunk publicdb
+    $ git clone https://github.com/HiSPARC/publicdb.git publicdb
 
 Symlink the vpn server example scripts into /usr/local/bin:
 
