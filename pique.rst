@@ -1,6 +1,10 @@
 Installation of Pique
 =====================
 
+Currently automated setup with Vagrant/Ansible.
+
+**DEPRECATED OLD METHOD**
+
 Granting davidf rights to manage software and services:
 
 .. code-block:: sh

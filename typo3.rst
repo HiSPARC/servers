@@ -47,7 +47,7 @@ with the version number.
     $ cd /usr/local/src
     $ wget http://garr.dl.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20[version number]/typo3_src-[version number].tar.gz
     $ tar xfz typo3_src-[version number].tar.gz
-    $ chown www.www *
+    $ chown -R apache.apache *
 
 
 Upgrading TYPO3 version
@@ -92,7 +92,7 @@ tool.
 
     $ cd /usr/local/www/web
     $ ln -f -s /usr/local/src/typo3_src-[version number]/* .
-    $ chown -h www.www *
+    $ chown -h apache.apache *
 
 
 Install the new version
@@ -305,6 +305,24 @@ Special characters where not correctly migrated to new encoding. Install
 The find and replace extension does not fix all occurrences (tt_news).
 Also used this to remove unneeded excess from link tags (`-
 external-link 'opens in new ...'`)
+
+
+Upgrade from 4.5.22 to 4.5.xx
+-----------------------------
+
+Applying security patches and minor updates.
+
+.. code-block:: sh
+
+    $ cd /usr/local/src
+    $ wget http://prdownloads.sourceforge.net/typo3/typo3_src-4.5.xx.tar.gz?download
+    $ tar xfz typo3_src-4.5.xx.tar.gz
+    $ chown -R apache.apache typo3_src-4.5.xx
+    $ cd /usr/local/www
+    $ mysqldump -u hisparc -p hisparc_t3 > hisparc_t3_yymmdd.sql
+    $ cd web
+    $ ln -f -s /usr/local/src/typo3_src-4.5.xx/* .
+    $ chown -h apache.apache *
 
 
 Upgrade from 4.5.22 to 4.6.15
